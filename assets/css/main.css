@@ -1,0 +1,8 @@
+@import url("styles.css");
+
+h1{
+    font-family: 'Merriweather', serif;
+    font-size: 48px;
+    color: #2B2B2B;
+    font-weight: bold;
+}
