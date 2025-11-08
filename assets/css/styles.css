@@ -207,3 +207,22 @@
     font-weight: 800;
     src: url('../fonts/open-sans-v44-latin-800italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
+
+/* ---- Design Tokens ------------------------------------------------------- */
+:root{
+    /* Farben */
+    --petrol: #2E8B8B;       /* Primär */
+    --gold: #F4C542;         /* Sekundär */
+    --terracotta: #E06A4E;   /* Akzent */
+    --offwhite: #F6F6F6;     /* Fläche/Hintergrund */
+    --anthracite: #2B2B2B;   /* Schrift */
+
+    --radius: 15px;
+    --radius-lg: 25px;
+
+
+    /* Typografie */
+    --font-heading: 'Merriweather';
+    --font-body: 'Open Sans';
+
+}
