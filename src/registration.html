@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Registrierung – TSV Dierfeld</title>
+
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/registration.css">
+
+</head>
+<body>
+<header>
+
+</header>
+
+<main class="container stack-25">
+
+    <!-- Mitglied -->
+    <section class="card stack-20">
+        <h2>Du bist bereits Mitglied?</h2>
+        <p>Logge dich einfach mit deinen bestehenden Nutzerdaten ein.</p>
+
+        <form class="form grid-2 gap-25" action="#" method="post">
+            <label class="field">
+                <span class="field__label">E-Mail-Adresse</span>
+                <input class="input" type="email" name="login_email" autocomplete="email" required>
+            </label>
+
+            <label class="field">
+                <span class="field__label">Passwort</span>
+                <input class="input" type="password" name="login_pwd" autocomplete="current-password" required>
+            </label>
+
+            <div class="form__actions">
+                <button type="button" class="btn accent">Abbrechen</button>
+                <button type="submit" class="btn primary">Anmelden →</button>
+            </div>
+        </form>
+    </section>
+
+
+    <div class="divider"><span>oder</span></div>
+
+    <!-- Kein Mitglied -->
+    <section class="card stack-20">
+        <h2>Du bist noch kein Mitglied?</h2>
+        <p>Dann kannst du jetzt ein Kundenkonto anlegen.</p>
+
+        <h3>Persönliche Daten</h3>
+
+        <form class="form stack-25" action="#" method="post" novalidate>
+            <fieldset class="fieldset">
+                <legend class="field__label">Anrede*</legend>
+                <label class="choice"><input type="radio" name="anrede" required> Herr</label>
+                <label class="choice"><input type="radio" name="anrede"> Frau</label>
+                <label class="choice"><input type="radio" name="anrede"> Divers</label>
+            </fieldset>
+
+            <div class="grid-2 gap-25">
+                <label class="field">
+                    <span class="field__label">Vorname*</span>
+                    <input class="input" type="text" name="vorname" autocomplete="given-name" required>
+                </label>
+
+                <label class="field">
+                    <span class="field__label">Nachname*</span>
+                    <input class="input" type="text" name="nachname" autocomplete="family-name" required>
+                </label>
+
+                <label class="field">
+                    <span class="field__label">Geburtstag*</span>
+                    <input class="input" type="date" name="geburtstag" required>
+                </label>
+
+                <div class="grid-2 gap-25">
+                    <label class="field">
+                        <span class="field__label">Mobil</span>
+                        <input class="input" type="tel" name="mobil" autocomplete="tel">
+                    </label>
+                    <label class="field">
+                        <span class="field__label">Telefon</span>
+                        <input class="input" type="tel" name="telefon">
+                    </label>
+                </div>
+
+                <label class="field grid-span-2">
+                    <span class="field__label">E-Mail-Adresse*</span>
+                    <input class="input" type="email" name="email" autocomplete="email" required>
+                </label>
+            </div>
+
+            <h3>Rechnungsadresse</h3>
+
+            <div class="grid-2 gap-25">
+                <label class="field">
+                    <span class="field__label">Straße*</span>
+                    <input class="input" type="text" name="strasse" autocomplete="address-line1" required>
+                </label>
+
+                <label class="field">
+                    <span class="field__label">Hausnummer*</span>
+                    <input class="input" type="text" name="hausnummer" required>
+                </label>
+
+                <label class="field">
+                    <span class="field__label">PLZ*</span>
+                    <input class="input" type="text" name="plz" autocomplete="postal-code" required>
+                </label>
+
+                <label class="field">
+                    <span class="field__label">Ort*</span>
+                    <input class="input" type="text" name="ort" autocomplete="address-level2" required>
+                </label>
+
+                <label class="field grid-span-2">
+                    <span class="field__label">Land*</span>
+                    <input class="input" type="text" name="land" autocomplete="country-name" required>
+                </label>
+            </div>
+
+            <label class="check">
+                <input type="checkbox" name="consent" required>
+                <span>
+              *Durch das Absenden des Formulars werden die von dir angegebenen personenbezogenen Daten erhoben.
+              Zur datenschutzrechtlichen Behandlung verweisen wir auf unsere Datenschutzerklärung.
+            </span>
+            </label>
+
+            <p>*Pflichtfeld</p>
+
+            <div class="form__actions">
+                <button type="button" class="btn accent">Abbrechen</button>
+                <button type="submit" class="btn primary">Anmelden →</button>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>
