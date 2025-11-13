@@ -1,8 +1,100 @@
 @import url("styles.css");
 
-h1{
-    font-family: 'Merriweather', serif;
+
+h1 {
+    font-family: var(--font-heading), serif;
     font-size: 48px;
-    color: #2B2B2B;
+    color: var(--anthracite);
     font-weight: bold;
 }
+
+h2 {
+    font-family: var(--font-heading), serif;
+    font-size: 36px;
+    color: var(--anthracite);
+    font-weight: bold;
+}
+
+h3 {
+    font-family: var(--font-heading), serif;
+    font-size: 24px;
+    color: var(--anthracite);
+    font-weight: bold;
+}
+p{
+    font-family: var(--font-body), sans-serif;
+    color: var(--anthracite);
+    font-size: 16px;
+}
+
+/* Responsive: Smartphones (max. 600px) */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 32px;
+        font-family: var(--font-heading), serif;
+        color: var(--anthracite);
+        font-weight: bold;
+    }
+
+    h2 {
+        font-size: 24px;
+        font-family: var(--font-heading), serif;
+        color: var(--anthracite);
+        font-weight: bold;
+    }
+
+    h3 {
+        font-size: 20px;
+        font-family: var(--font-heading), serif;
+        color: var(--anthracite);
+        font-weight: bold;
+    }
+
+}
+
+/*Colors and more*/
+body {
+    background-color: var(--offwhite);
+}
+
+
+.primary {
+    background-color: var(--petrol);
+}
+
+.secondary {
+    background-color: var(--gold);
+    color: var(--anthracite);
+}
+
+.accent {
+    background-color: var(--terracotta);
+}
+
+
+/*Actions and Styling Elements*/
+.button {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.btn--action:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.02);
+}
+
+
+.btn--action:active {
+    transform: translateY(0);
+}
+
+
