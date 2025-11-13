@@ -1,0 +1,42 @@
+*{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+        "header header header"
+        "banner banner banner"
+        "hgames hgames gbutton"
+        "game game game"
+        "logo imageT imageT"
+        "ibutton imageT imageT"
+        "player sportT illustration"
+        "illustration sportT player"
+        "player sportT illustartion"
+        ".. abutton"
+        "footer footer footer";
+}
+
+
+/* Responsive: Smartphones (max. 600px) */
+@media (max-width: 600px){
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows:1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+        "header header header"
+        "banner banner banner"
+        "hgames hgames hgames"
+        "game game game"
+        "gbutton gbutton gbutton"
+        "logo logo logo"
+        "imageT imageT imageT"
+        "ibutton ibutton ibutton"
+        "player player ."
+        "sportT sportT ."
+        ". player player"
+        ". sportT sportT"
+        "player player ."
+        "sportT sportT ."
+        "abutton abutton abutton"
+        "footer footer footer"
+}
