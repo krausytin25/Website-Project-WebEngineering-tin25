@@ -1,18 +1,18 @@
 @import url("main.css");
 
+/* Layout-Block */
 .page-grid {
     display: grid;
-    grid-template-columns: 1fr minmax(320px, 760px) 1fr; /* 3 Spalten */
-    grid-template-rows: auto auto auto;                   /* 3 Zeilen */
+    grid-template-columns: 1fr minmax(320px, 760px) 1fr;
+    grid-template-rows: auto auto auto;
     gap: 28px;
     padding: 32px 20px 64px;
     min-height: 100vh;
     background-color: var(--offwhite);
 }
 
-/* Optionale Platzhalter-Stile, um die Grid-Struktur sichtbar zu machen */
 .page-grid__item {
-    grid-column: 2; /* Mittlere Spalte */
+    grid-column: 2;
     background-color: #ffffff;
     border-radius: 15px;
     padding: 20px;
@@ -20,21 +20,12 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Zeilen explizit definieren */
 .page-grid__item--row1 { grid-row: 1; }
 .page-grid__item--row2 { grid-row: 2; }
 .page-grid__item--row3 { grid-row: 3; }
 
-/* Responsiv */
-@media (max-width: 640px) {
-    .page-grid {
-        gap: 20px;
-        padding: 20px 14px 40px;
-    }
-}
-
-/* Divider */
-.divider {
+/* Divider als Element von page-grid */
+.page-grid__divider {
     grid-column: 2;
     display: flex;
     align-items: center;
@@ -43,10 +34,180 @@
     user-select: none;
     font-weight: 600;
 }
-.divider::before,
-.divider::after {
+.page-grid__divider::before,
+.page-grid__divider::after {
     content: "";
     height: 1px;
     background: rgba(0,0,0,.25);
     flex: 1;
+}
+
+.input__section {
+    display: flex;
+    font-family: "Open Sans", sans-serif;
+    flex-direction: column;
+    align-items: center;      /* Überschrift & Text zentriert */
+}
+
+/* Inputs: zwei Spalten nebeneinander */
+.input__double {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+/* 1 Eingabe über die gesamte Zeile */
+.input__single {
+    display: flow;
+    width: calc(240px * 2 + 40px);
+    margin-bottom: 20px;
+}
+
+.input__single label {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+/* Gemeinsamer Input-Stil */
+.input__double input,
+.input__single input{
+    margin-top: 6px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    background: #F3F4F6;
+    border: 1px solid var(--anthracite);
+}
+
+/* Label + Input untereinander, feste Spaltenbreite */
+.input__double label {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    text-align: left;
+}
+
+/* Buttons unter den Inputs, links/rechts ausgerichtet */
+.input__buttons {
+    display: flex;
+    gap: 40px;
+    width: calc(240px * 2 + 40px); /* gleiche Gesamtbreite wie .input__double */
+    justify-content: space-between;
+}
+
+.separator {
+    border: none;
+    border-top: 1px solid #999;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.input__radio{
+    display: flex;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input__text{
+    font-family: "Open Sans", sans-serif;
+    color: var(--anthracite);
+    margin-bottom: 20px;
+}
+
+/* ---------- Responsiv ---------- */
+
+@media (max-width: 640px) {
+
+    /* Grid enger & einspaltig zentriert */
+    .page-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 16px;
+        padding: 16px 10px 32px;
+    }
+
+    .page-grid__item {
+        grid-column: 1;
+        padding: 16px 14px;
+        text-align: left;             /* Texte auf Handy besser linksbündig */
+    }
+
+    .page-grid__divider {
+        grid-column: 1;
+        font-size: 0.9rem;
+        gap: 8px;
+    }
+
+    /* Überschriften minimal kleiner */
+    .page-grid__item h2 {
+        font-size: 1.25rem;
+        text-align: left;
+    }
+
+    .page-grid__item h3 {
+        font-size: 1.1rem;
+    }
+
+    /* Eingabebereich: von zentriert auf volle Breite */
+    .input__section {
+        align-items: stretch;
+    }
+
+    /* Doppel-Inputs untereinander statt nebeneinander */
+    .input__double {
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .input__double label {
+        width: 100%;
+    }
+
+    /* Einzeilige Inputs auch einfach 100% */
+    .input__single {
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .input__single label {
+        width: 100%;
+    }
+
+    /* Buttons über die gesamte Breite, übereinander gestapelt */
+    .input__buttons {
+        width: 100%;
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+
+    .input__buttons .button {
+        width: 100%;
+    }
+
+    /* Radio-Anrede: etwas Luft & Umbruch */
+    .pers-info__label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+    }
+
+    .pers-info__radio-input {
+        margin-right: 4px;
+    }
+
+    .input__section > div:first-child label {
+        margin-right: 12px;
+    }
+
+    /* Checkbox-Text besser lesbar */
+    .input__section input[type="checkbox"] {
+        margin-right: 8px;
+    }
+
+    .separator {
+        margin: 16px 0;
+    }
 }
