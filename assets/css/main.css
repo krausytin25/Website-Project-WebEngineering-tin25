@@ -85,6 +85,8 @@ body {
     cursor: pointer;
     text-align: center;
     transition: transform 0.2s, opacity 0.2s;
+    text-decoration: none;
+    font-family: "Open Sans", sans-serif;
 }
 
 .btn--action:hover {
