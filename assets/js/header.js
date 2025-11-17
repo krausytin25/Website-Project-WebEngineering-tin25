@@ -1,5 +1,3 @@
-// src/js/header.js
-
 function initHeader(container) {
     const menuToggle = container.querySelector('.menu-toggle');
     const mainNav    = container.querySelector('.main-nav');
