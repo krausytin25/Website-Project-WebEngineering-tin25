@@ -1,0 +1,55 @@
+<!-- src/components/header.html -->
+<header class="site-header primary">
+    <div class="site-header__inner">
+
+        <!-- Logo + Vereinsname -->
+        <a href="/" class="brand">
+            <img src="../../assets/images/LogoSchriftWeis.png"
+                 alt="TSV Dierfeld Logo"
+                 class="brand__logo">
+            <span class="brand__text">TSV Dierfeld</span>
+        </a>
+
+        <!-- Hamburger / Mobile -->
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-label="Menü öffnen">
+            <span class="menu-toggle__label">Menü</span>
+            <span class="menu-toggle__icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+        </button>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <ul class="main-nav__list">
+                <li><a href="#">Startseite</a></li>
+                <li><a href="#">Über uns</a></li>
+
+                <!-- Abteilungen mit Untermenü -->
+                <li class="nav-item nav-item--has-submenu">
+                    <button type="button"
+                            class="submenu-toggle"
+                            aria-expanded="false">
+                        Abteilungen
+                        <span class="submenu-toggle__icon">▾</span>
+                    </button>
+                    <ul class="submenu">
+                        <li><a href="#">Fußball</a></li>
+                        <li><a href="#">Turnen</a></li>
+                        <li><a href="#">Leichtathletik</a></li>
+                        <li><a href="#">Tischtennis</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#">Termine</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <a href="../registration.html" class="button accent btn--action">Mitglied werden</a>
+                <a href="../registration.html" class="button button--outline">LOGIN</a>
+            </div>
+        </nav>
+
+    </div>
+</header>
