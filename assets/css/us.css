@@ -4,7 +4,6 @@
     padding: 32px 16px 60px;
 }
 
-/* Standard-Abschnitte */
 .about-section {
     background: #ffffff;
     border-radius: var(--radius-lg);
@@ -18,7 +17,6 @@
     margin-bottom: 16px;
 }
 
-/* Werte-Karten */
 .about-values {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -42,7 +40,6 @@
     margin: 0;
 }
 
-/* Abteilungs-Liste */
 .about-list {
     list-style: none;
     padding-left: 0;
@@ -52,8 +49,9 @@
 .about-list li {
     margin-bottom: 8px;
     font-size: 18px;
-    font-family: var(--font-body);
+    font-family: var(--font-body), sans-serif;
 }
+
 
 /* Responsive Layout */
 @media (max-width: 800px) {
