@@ -1,26 +1,8 @@
-body {
-    font-family: Merriweather, Black, serif;
-    background-color: #F6F6F6;
-}
-
 .container {
     width: 90%;
     max-width: 1340px;
     margin: 0 auto;
     padding: 20px 0;
-}
-
-h1 {
-    font-family: var(--font-heading), serif;
-    font-size: 48px;
-    color: var(--anthracite);
-    font-weight: bold;
-}
-
-p {
-    font-family: var(--font-body), sans-serif;
-    color: var(--anthracite);
-    font-size: 16px;
 }
 
 p a {
@@ -45,26 +27,7 @@ p a {
 }
 
 @media (max-width: 600px) {
-    h1 {
-        font-size: 32px;
-        font-family: var(--font-heading), serif;
-        color: var(--anthracite);
-        font-weight: bold;
-    }
 
-    h2 {
-        font-size: 24px;
-        font-family: var(--font-heading), serif;
-        color: var(--anthracite);
-        font-weight: bold;
-    }
-
-    h3 {
-        font-size: 20px;
-        font-family: var(--font-heading), serif;
-        color: var(--anthracite);
-        font-weight: bold;
-    }
     img {
         max-height: 250px;
         max-width: 250px;
