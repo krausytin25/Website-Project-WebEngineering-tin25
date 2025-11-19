@@ -216,6 +216,8 @@
     --terracotta: #E06A4E;   /* Akzent */
     --offwhite: #F6F6F6;     /* Fläche/Hintergrund */
     --anthracite: #2B2B2B;   /* Schrift */
+    --light_grey: #D9D9D9;   /*Fläche/Hintergrund/Sekundär*/
+    --placeholder: #939393;  /*Platzhalter/Hintergrund+/
 
     --radius: 15px;
     --radius-lg: 25px;
