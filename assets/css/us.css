@@ -1,0 +1,69 @@
+.about-page__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
+}
+
+/* Standard-Abschnitte */
+.about-section {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.about-section h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+/* Werte-Karten */
+.about-values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.value-card {
+    background: var(--offwhite);
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+.value-card h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.value-card p {
+    margin: 0;
+}
+
+/* Abteilungs-Liste */
+.about-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 12px;
+}
+
+.about-list li {
+    margin-bottom: 8px;
+    font-size: 18px;
+    font-family: var(--font-body);
+}
+
+/* Responsive Layout */
+@media (max-width: 800px) {
+    .about-values {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-section {
+        padding: 16px;
+    }
+}
