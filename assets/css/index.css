@@ -27,11 +27,6 @@
         "footer footer footer";
 }
 
-/* ======================= HEADER ======================= */
-
-.header {
-    grid-area: header;
-}
 
 /* ======================= BANNER ======================= */
 
@@ -46,9 +41,13 @@
     h1{
         color: var(--offwhite);
     }
+    margin: 15px;
+    border-radius: var(--radius-lg);
 }
 
-
+.footer {
+    grid-area: footer;
+}
 
 /* ======================= NÄCHSTE SPIELE SECTION ======================= */
 
@@ -281,12 +280,6 @@
     grid-area: abutton;
     text-align: right;
     margin: 0 50px 25px 0;
-}
-
-/* ======================= FOOTER ======================= */
-
-.footer {
-    grid-area: footer;
 }
 
 /* ======================= MEDIA: HIDE CERTAIN ELEMENTS ======================= */
