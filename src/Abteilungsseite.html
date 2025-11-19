@@ -4,152 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Unsere Abteilungen</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/abteilungsseite.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
 
-    <style>
-        body {
-            font-family: Merriweather, Black;
-            background-color: #F6F6F6;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1340px;
-            height: 522px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-
-        h1 {
-            font-family: var(--font-heading), serif;
-            font-size: 48px;
-            color: var(--anthracite);
-            font-weight: bold;
-        }
-
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 40px;
-            display: flex;
-            gap: 25px;
-            align-items: flex-start;
-            border: 1px solid #dcdcdc;
-        }
-
-        .card img {
-            width: 260px;
-            height: auto;
-            border-radius: 5px;
-            object-fit: cover;
-        }
-
-        .text-content {
-            flex: 1;
-        }
-
-        h2 {
-            font-family: var(--font-heading), serif;
-            font-size: 36px;
-            color: var(--anthracite);
-            font-weight: bold;
-        }
-        p{
-            font-family: var(--font-body), sans-serif;
-            color: var(--anthracite);
-            font-size: 16px;
-        }
-        p a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .button {
-            background-color:#2E8B8B;
-            display: inline-block;
-            padding: 12px 24px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 15px;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-
-        .button--action:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.02);
-        }
-
-
-        .button--action:active {
-            transform: translateY(0);
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-            font-size: 32px;
-            font-family: var(--font-heading), serif;
-            color: var(--anthracite);
-            font-weight: bold;
-        }
-
-            h2 {
-                font-size: 24px;
-                font-family: var(--font-heading), serif;
-                color: var(--anthracite);
-                font-weight: bold;
-            }
-
-            h3 {
-                font-size: 20px;
-                font-family: var(--font-heading), serif;
-                color: var(--anthracite);
-                font-weight: bold;
-            }
-            .card {
-                flex-direction: column;
-                text-align: center;
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-                grid-template-areas:
-                    "title"
-                    "img"
-                    "body";
-                gap: 14px;
-                padding: 16px;
-            }
-
-            .card img {
-                width: 100%;
-            }
-            .card .title h2{
-                font-size: 24px;
-            }
-
-            .text-content {
-                text-align: left;
-            }
-            img {
-                max-height: 250px;
-                max-width: 250px;
-                align-self: center;
-            }
-        }
-    </style>
 </head>
 <body>
-
+<div id="header"></div>
 <div class="container">
     <p><a href="Startseite.html">Startseite | Unsere Abteilungen</a></p>
     <h1>Unsere Abteilungen</h1>
 
     <!-- Fußball -->
     <div class="card">
-        <img src="../Bilder/Fussball.jpeg"/>
+        <img src="../assets/images/Fussball.jpeg"/>
         <div class="text-content">
             <h2>Fußball</h2>
             <p>
@@ -164,7 +33,7 @@
 
     <!-- Handball -->
     <div class="card">
-        <img src="../Bilder/Handball.jpeg"/>
+        <img src="../assets/images/Handball.jpeg"/>
         <div class="text-content">
             <h2>Handball</h2>
             <p>
@@ -178,7 +47,7 @@
     </div>
     <!-- Volleyball -->
     <div class="card">
-        <img src="../Bilder/Volleyball.jpeg">
+        <img src="../assets/images/Volleyball.jpeg"/>
         <div class="text-content">
             <h2>Volleyball</h2>
             <p>
@@ -191,6 +60,8 @@
     </div>
 
 </div>
-
+<div id="footer"></div>
+<script src="../assets/js/header.js"></script>
+<script src="../assets/js/footer.js"></script>
 </body>
 </html>
