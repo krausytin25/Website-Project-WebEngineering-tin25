@@ -4,152 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Unsere Abteilungen</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/abteilungsseite.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
 
-    <style>
-        body {
-            font-family: Merriweather, Black;
-            background-color: #F6F6F6;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1340px;
-            height: 522px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-
-        h1 {
-            font-family: var(--font-heading), serif;
-            font-size: 48px;
-            color: var(--anthracite);
-            font-weight: bold;
-        }
-
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 40px;
-            display: flex;
-            gap: 25px;
-            align-items: flex-start;
-            border: 1px solid #dcdcdc;
-        }
-
-        .card img {
-            width: 260px;
-            height: auto;
-            border-radius: 5px;
-            object-fit: cover;
-        }
-
-        .text-content {
-            flex: 1;
-        }
-
-        h2 {
-            font-family: var(--font-heading), serif;
-            font-size: 36px;
-            color: var(--anthracite);
-            font-weight: bold;
-        }
-        p{
-            font-family: var(--font-body), sans-serif;
-            color: var(--anthracite);
-            font-size: 16px;
-        }
-        p a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .button {
-            background-color:#2E8B8B;
-            display: inline-block;
-            padding: 12px 24px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 15px;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-
-        .button--action:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.02);
-        }
-
-
-        .button--action:active {
-            transform: translateY(0);
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-            font-size: 32px;
-            font-family: var(--font-heading), serif;
-            color: var(--anthracite);
-            font-weight: bold;
-        }
-
-            h2 {
-                font-size: 24px;
-                font-family: var(--font-heading), serif;
-                color: var(--anthracite);
-                font-weight: bold;
-            }
-
-            h3 {
-                font-size: 20px;
-                font-family: var(--font-heading), serif;
-                color: var(--anthracite);
-                font-weight: bold;
-            }
-            .card {
-                flex-direction: column;
-                text-align: center;
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-                grid-template-areas:
-                    "title"
-                    "img"
-                    "body";
-                gap: 14px;
-                padding: 16px;
-            }
-
-            .card img {
-                width: 100%;
-            }
-            .card .title h2{
-                font-size: 24px;
-            }
-
-            .text-content {
-                text-align: left;
-            }
-            img {
-                max-height: 250px;
-                max-width: 250px;
-                align-self: center;
-            }
-        }
-    </style>
 </head>
 <body>
-
+<div id="header"></div>
+<main>
 <div class="container">
-    <p><a href="Startseite.html">Startseite | Unsere Abteilungen</a></p>
+    <p><a href="index.html">Startseite | Unsere Abteilungen</a></p>
     <h1>Unsere Abteilungen</h1>
 
     <!-- Fußball -->
     <div class="card">
-        <img src="../Bilder/Fussball.jpeg"/>
+        <img src="../assets/images/Fussball.jpeg" alt="Fußball"/>
         <div class="text-content">
             <h2>Fußball</h2>
             <p>
@@ -158,13 +28,13 @@
                 Von den Nachwuchsspielern bis zu den erfahrenen Aktiven bieten wir allen Fußballbegeisterten
                 die Möglichkeit, ihre Leidenschaft für den Sport auszuleben und gemeinsame Erfolge zu feiern.
             </p>
-            <a href="#" class="button">Mehr Infos</a>
+            <a href="soccer.html" class="button">Mehr Infos</a>
         </div>
     </div>
 
     <!-- Handball -->
     <div class="card">
-        <img src="../Bilder/Handball.jpeg"/>
+        <img src="../assets/images/Handball.jpeg" alt="Handball"/>
         <div class="text-content">
             <h2>Handball</h2>
             <p>
@@ -173,12 +43,12 @@
                 Unsere Teams bieten Spielerinnen und Spielern aller Altersklassen die Möglichkeit,
                 sich sportlich zu entwickeln und den Teamgeist zu erleben, der den Handball so besonders macht.
             </p>
-            <a href="#" class="button">Mehr Infos</a>
+            <a href="handball.html" class="button">Mehr Infos</a>
         </div>
     </div>
     <!-- Volleyball -->
     <div class="card">
-        <img src="../Bilder/Volleyball.jpeg">
+        <img src="../assets/images/Volleyball.jpeg" alt="Volleyball"/>
         <div class="text-content">
             <h2>Volleyball</h2>
             <p>
@@ -186,11 +56,30 @@
                 Ob in der Halle oder im Sand – hier zählt der Teamgeist, die Bewegung und die Freude am gemeinsamen Erfolg.
                 Von Anfängern bis zu erfahrenen Spielerinnen und Spielern bieten wir allen die Möglichkeit, Teil eines engagierten und lebendigen Teams zu werden.
             </p>
-            <a href="#" class="button">Mehr Infos</a>
+            <a href="volleyball.html" class="button">Mehr Infos</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="../assets/images/Yoga.png" alt="Gymnastik"/>
+        <div class="text-content">
+            <h2>Gymnastik</h2>
+            <p>
+                Unsere Gymnastikabteilung verbindet elegante Bewegung mit Kraft, Balance und Ausdruck.
+                Ob beim Bodenturnen, an Geräten oder in der rhythmischen Gymnastik –
+                im Mittelpunkt stehen Körpergefühl, Präzision und die Freude an gemeinsamer Bewegung.
+                Von Anfängerinnen und Anfängern bis zu erfahrenen Turnerinnen und Turnern heißen wir alle willkommen,
+                die Teil einer dynamischen, motivierten und unterstützenden Gruppe werden möchten.
+                Hier wachsen wir zusammen über uns hinaus – mit Spaß, Engagement und Teamgeist.
+            </p>
+            <a href="gym.html" class="button">Mehr Infos</a>
         </div>
     </div>
 
 </div>
-
+</main>
+<div id="footer"></div>
+<script src="../assets/js/header.js"></script>
+<script src="../assets/js/footer.js"></script>
 </body>
 </html>
