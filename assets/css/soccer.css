@@ -26,26 +26,6 @@ p a {
 }
 
 @media (max-width: 600px) {
-    h1 {
-        font-size: 32px;
-        font-family: var(--font-heading), serif;
-        color: var(--anthracite);
-        font-weight: bold;
-    }
-
-    h2 {
-        font-size: 24px;
-        font-family: var(--font-heading), serif;
-        color: var(--anthracite);
-        font-weight: bold;
-    }
-
-    h3 {
-        font-size: 20px;
-        font-family: var(--font-heading), serif;
-        color: var(--anthracite);
-        font-weight: bold;
-    }
     img {
         max-height: 250px;
         max-width: 250px;
