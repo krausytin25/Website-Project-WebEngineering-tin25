@@ -32,17 +32,46 @@
 
 .banner {
     grid-area: banner;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 500px;
-    text-align: center;
-    background-color: var(--placeholder);
-    h1{
-        color: var(--offwhite);
-    }
     margin: 15px;
     border-radius: var(--radius-lg);
+    overflow: hidden;                 /* damit Bilder nicht überstehen */
+    position: relative;
+    height: 500px;
+    background: #ccc;
+}
+
+.banner-slider {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.banner-slide {
+    position: absolute;
+    top: 0;
+    left: 100%;                       /* Start: rechts außerhalb */
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition:
+            left 1s ease-in-out,
+            opacity 0.8s ease-in-out;
+}
+
+.banner-slide.active {
+    left: 0;                          /* sichtbar */
+    opacity: 1;
+}
+
+.banner-slide.exit-left {
+    left: -100%;                      /* raus nach links */
+    opacity: 0;
+}
+
+.banner-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .footer {
@@ -54,9 +83,8 @@
 .games {
     grid-area: games-section;
     background: var(--light_grey);
-    padding: 40px 60px;
+    padding: 40px 40px;
     margin-bottom: 100px;
-
 }
 
 .games_header {
@@ -68,8 +96,8 @@
 
 .games_grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
 }
 
 .game--card {
@@ -84,12 +112,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 24px;
     margin-bottom: 20px;
+    flex-wrap: nowrap;
 }
 
 .teams img {
-    width: 154px;
+    max-width: 120px;
+    width: 22vw;
+    height: auto;
 }
 
 .vs {
@@ -288,6 +319,10 @@
     .hidefaster {
         display: none;
     }
+
+    .games_grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 /* ======================= MOBILE GRID ======================= */
@@ -314,9 +349,14 @@
             "footer footer footer";
     }
 
-    .hideonmobile{
+    .hideonmobile {
         display: none;
     }
+
+    .games_grid {
+        grid-template-columns: 1fr;
+    }
+
     .games_header a{
         display: none;
     }
