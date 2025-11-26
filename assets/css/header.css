@@ -9,8 +9,9 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;   /* vorher: flex-start */
     gap: 0;
+    flex-wrap: nowrap;
 }
 
 
@@ -120,7 +121,7 @@
     align-items: center;
     gap: 16px;
     white-space: nowrap;
-    margin-left: 48px;
+    margin-left: 32px;                /* etwas kleiner, kann auch weg */
 }
 
 .button--outline {
@@ -156,7 +157,11 @@
 
 /* === Responsive Header ==================================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+
+    .site-header {
+        padding: 8px 16px; /* etwas weniger Rand, gibt ein paar Pixel mehr Breite */
+    }
 
     .site-header__inner {
         display: flex;
@@ -176,7 +181,7 @@
         position: absolute;
         left: 0;
         right: 0;
-        top: 60px;
+        top: 72px; /* ggf. leicht an dein tatsächliches Header-Höhe anpassen */
         background: #ffffff;
         color: var(--anthracite);
         flex-direction: column;
@@ -266,6 +271,8 @@
         padding: 12px 16px 4px;
         border-top: 1px solid #eee;
         margin-top: 8px;
+        margin-left: 0; /* wichtig: kein fixer Abstand mehr */
+        white-space: normal;
     }
 
     .header-actions .button {
