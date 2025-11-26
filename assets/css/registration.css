@@ -1,6 +1,4 @@
-@import url("main.css");
 
-/* Layout-Block */
 .page-grid {
     display: grid;
     grid-template-columns: 1fr minmax(320px, 760px) 1fr;
@@ -24,7 +22,6 @@
 .page-grid__item--row2 { grid-row: 2; }
 .page-grid__item--row3 { grid-row: 3; }
 
-/* Divider als Element von page-grid */
 .page-grid__divider {
     grid-column: 2;
     display: flex;
@@ -33,6 +30,7 @@
     color: rgba(0,0,0,.55);
     user-select: none;
     font-weight: 600;
+    font-family: var(--font-body), sans-serif;
 }
 .page-grid__divider::before,
 .page-grid__divider::after {
@@ -46,17 +44,15 @@
     display: flex;
     font-family: "Open Sans", sans-serif;
     flex-direction: column;
-    align-items: center;      /* Überschrift & Text zentriert */
+    align-items: center;
 }
 
-/* Inputs: zwei Spalten nebeneinander */
 .input__double {
     display: flex;
     gap: 40px;
     margin-bottom: 20px;
 }
 
-/* 1 Eingabe über die gesamte Zeile */
 .input__single {
     display: flow;
     width: calc(240px * 2 + 40px);
@@ -69,7 +65,6 @@
     text-align: left;
 }
 
-/* Gemeinsamer Input-Stil */
 .input__double input,
 .input__single input{
     margin-top: 6px;
@@ -80,7 +75,6 @@
     border: 1px solid var(--anthracite);
 }
 
-/* Label + Input untereinander, feste Spaltenbreite */
 .input__double label {
     display: flex;
     flex-direction: column;
@@ -88,11 +82,10 @@
     text-align: left;
 }
 
-/* Buttons unter den Inputs, links/rechts ausgerichtet */
 .input__buttons {
     display: flex;
     gap: 40px;
-    width: calc(240px * 2 + 40px); /* gleiche Gesamtbreite wie .input__double */
+    width: calc(240px * 2 + 40px);
     justify-content: space-between;
 }
 
@@ -112,14 +105,64 @@
 .input__text{
     font-family: "Open Sans", sans-serif;
     color: var(--anthracite);
-    margin-bottom: 20px;
+    text-align: left;
+    width: calc(240px * 2 + 40px);
+}
+
+.membership-type {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: calc(240px * 2 + 40px);
+}
+
+.membership-type__option {
+    display: flex;
+    align-items: center;
+    background: #F3F4F6;
+    padding: 14px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: 0.2s ease;
+}
+
+.membership-type__option:hover {
+    background: #e9ecef;
+}
+
+.membership-type__input {
+    margin-right: 16px;
+    transform: scale(1.25);
+    cursor: pointer;
+}
+
+.membership-type__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.membership-type__title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--anthracite);
+}
+
+.membership-type__price {
+    font-size: 0.9rem;
+    color: rgba(0,0,0,0.6);
+    text-align: left;
+}
+
+.membership-type__option:has(.membership-type__input:checked) {
+    border-color: var(--petrol);
+    background: #e6f5f7;
 }
 
 /* ---------- Responsiv ---------- */
 
 @media (max-width: 640px) {
 
-    /* Grid enger & einspaltig zentriert */
     .page-grid {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
@@ -130,7 +173,7 @@
     .page-grid__item {
         grid-column: 1;
         padding: 16px 14px;
-        text-align: left;             /* Texte auf Handy besser linksbündig */
+        text-align: left;
     }
 
     .page-grid__divider {
@@ -139,7 +182,6 @@
         gap: 8px;
     }
 
-    /* Überschriften minimal kleiner */
     .page-grid__item h2 {
         font-size: 1.25rem;
         text-align: left;
@@ -149,12 +191,10 @@
         font-size: 1.1rem;
     }
 
-    /* Eingabebereich: von zentriert auf volle Breite */
     .input__section {
         align-items: stretch;
     }
 
-    /* Doppel-Inputs untereinander statt nebeneinander */
     .input__double {
         flex-direction: column;
         gap: 16px;
@@ -166,7 +206,6 @@
         width: 100%;
     }
 
-    /* Einzeilige Inputs auch einfach 100% */
     .input__single {
         width: 100%;
         margin-bottom: 16px;
@@ -176,7 +215,6 @@
         width: 100%;
     }
 
-    /* Buttons über die gesamte Breite, übereinander gestapelt */
     .input__buttons {
         width: 100%;
         flex-direction: column-reverse;
@@ -187,7 +225,6 @@
         width: 100%;
     }
 
-    /* Radio-Anrede: etwas Luft & Umbruch */
     .pers-info__label {
         display: block;
         margin-bottom: 6px;
@@ -202,7 +239,6 @@
         margin-right: 12px;
     }
 
-    /* Checkbox-Text besser lesbar */
     .input__section input[type="checkbox"] {
         margin-right: 8px;
     }

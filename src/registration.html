@@ -34,7 +34,7 @@
             </div>
 
             <div class="input__buttons">
-                <button class="button accent btn--action" onclick="history.back()" >Abbrechen</button>
+                <button class="button accent btn--action" onclick="history.back()">Abbrechen</button>
                 <button class="button primary btn--action" onclick="window.location='profile.html'">Anmelden</button>
             </div>
         </section>
@@ -101,11 +101,65 @@
                 </label>
             </div>
 
+        </section>
+
+        <h3>Anmeldedaten</h3>
+        <div class="separator"></div>
+        <div class="divider"></div>
+        <section class="input__section">
             <div class="input__single">
                 <label>
                     E-Mail-Adresse*
                     <input type="email">
                 </label>
+            </div>
+
+            <div class="input__single">
+                <label>
+                    Passwort*
+                    <input type="password">
+                </label>
+            </div>
+
+        </section>
+
+        <h3>Mitgliedsart</h3>
+        <div class="separator"></div>
+        <section class="input__section">
+            <div class="membership-type">
+
+                <label class="membership-type__option">
+                    <input type="radio" name="mitgliedsart" value="kinder" class="membership-type__input">
+                    <span class="membership-type__content">
+                <span class="membership-type__title">Kinder & Jugendliche</span>
+                <span class="membership-type__price">30 € / Jahr</span>
+            </span>
+                </label>
+
+                <label class="membership-type__option">
+                    <input type="radio" name="mitgliedsart" value="erwachsene" class="membership-type__input">
+                    <span class="membership-type__content">
+                <span class="membership-type__title">Erwachsene</span>
+                <span class="membership-type__price">60 € / Jahr</span>
+            </span>
+                </label>
+
+                <label class="membership-type__option">
+                    <input type="radio" name="mitgliedsart" value="ermaessigt" class="membership-type__input">
+                    <span class="membership-type__content">
+                <span class="membership-type__title">Ermäßigt (Studenten, Azubis, Rentner)</span>
+                <span class="membership-type__price">40 € / Jahr</span>
+            </span>
+                </label>
+
+                <label class="membership-type__option">
+                    <input type="radio" name="mitgliedsart" value="familie" class="membership-type__input">
+                    <span class="membership-type__content">
+                <span class="membership-type__title">Familienmitgliedschaft</span>
+                <span class="membership-type__price">120 € / Jahr</span>
+            </span>
+                </label>
+
             </div>
         </section>
 
@@ -145,20 +199,44 @@
 
             <div class="input__text">
                 <label>
-                    <input type="checkbox">* Durch das Absenden des Formulars
+                    <input type="checkbox">
+                    Durch das Absenden des Formulars
                     werden die von dir angegebenen
                     personenbezogenen Daten durch uns erhoben.
                     Zur datenschutzrechtlichen Behandlung der von dir gemachten Angaben
                     verweisen wir im Übrigen auf
-                    unsere Datenschutzerklärung.
+                    unsere Datenschutzerklärung.*
                 </label>
+
             </div>
+            <div class="input__text">
+                <p>
+                    * Pflichtfelder
+                </p>
+            </div>
+
+
+
             <div class="input__buttons">
                 <button class="button accent btn--action" onclick="history.back()">Abbrechen</button>
                 <button class="button primary btn--action" onclick="window.location='profile.html'">Anmelden</button>
             </div>
 
         </section>
+    </div>
+
+    <div class="page-grid__divider">oder</div>
+
+    <div class="page-grid__item page-grid__item--row4">
+        <h2>Antrag herunterladen</h2>
+        <p>Drucke und fülle den Antrag ganz einfach aus, schicke ihne an unsere Adresse
+            und werde Mitglied. Ohne Account, ohne Schnickschnak. </p>
+
+        <a href="../assets/docs/mitgliedsantrag_tsv_dierfeld.pdf"
+           download="Beitrittserklaerung-TSV-Dierfeld.pdf"
+           class="button primary btn--action">
+            Beitrittserklärung als PDF herunterladen
+        </a>
     </div>
 </main>
 <div id="footer"></div>
