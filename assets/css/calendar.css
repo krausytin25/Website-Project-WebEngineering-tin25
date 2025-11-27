@@ -51,13 +51,12 @@
 
 /* Terminkalender */
 .calendar-section h2 {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 
 .calendar-card {
     background-color: #ffffff;
     border-radius: var(--radius-lg);
-    border: 1px solid rgba(0,0,0,0.08);
     padding: 16px 16px 18px;
     font-family: var(--font-body), sans-serif;
 }
@@ -129,6 +128,36 @@
     font-size: 13px;
 }
 
+.news-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.news-section__scroll {
+    max-height: 650px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Schöne Scrollbar */
+.news-section__scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.news-section__scroll::-webkit-scrollbar-track {
+    background: #e6e6e6;
+    border-radius: 10px;
+}
+
+.news-section__scroll::-webkit-scrollbar-thumb {
+    background: var(--petrol);
+    border-radius: 10px;
+}
+
+.news-section__scroll::-webkit-scrollbar-thumb:hover {
+    background: #0f6465;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
     .news-layout {
@@ -147,5 +176,9 @@
 
     .calendar-card {
         padding: 12px;
+    }
+
+    .news-section__scroll {
+        max-height: 400px;
     }
 }

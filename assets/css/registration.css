@@ -51,11 +51,14 @@
     display: flex;
     gap: 40px;
     margin-bottom: 20px;
+    width: 100%;
+    max-width: 520px;
 }
 
 .input__single {
     display: flow;
-    width: calc(240px * 2 + 40px);
+    width: 100%;
+    max-width: 520px;
     margin-bottom: 20px;
 }
 
@@ -78,14 +81,15 @@
 .input__double label {
     display: flex;
     flex-direction: column;
-    width: 240px;
+    flex: 1;
     text-align: left;
 }
 
 .input__buttons {
     display: flex;
     gap: 40px;
-    width: calc(240px * 2 + 40px);
+    width: 100%;
+    max-width: 520px;
     justify-content: space-between;
 }
 
@@ -106,14 +110,16 @@
     font-family: "Open Sans", sans-serif;
     color: var(--anthracite);
     text-align: left;
-    width: calc(240px * 2 + 40px);
+    width: 100%;
+    max-width: 520px;
 }
 
 .membership-type {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    width: calc(240px * 2 + 40px);
+    width: 100%;
+    max-width: 520px;
 }
 
 .membership-type__option {
@@ -199,6 +205,7 @@
         flex-direction: column;
         gap: 16px;
         width: 100%;
+        max-width: 100%;
         margin-bottom: 16px;
     }
 
@@ -206,41 +213,22 @@
         width: 100%;
     }
 
-    .input__single {
+    .input__single,
+    .input__buttons,
+    .input__text,
+    .membership-type {
         width: 100%;
+        max-width: 100%;
         margin-bottom: 16px;
     }
 
-    .input__single label {
-        width: 100%;
-    }
-
     .input__buttons {
-        width: 100%;
         flex-direction: column-reverse;
         gap: 10px;
     }
 
     .input__buttons .button {
         width: 100%;
-    }
-
-    .pers-info__label {
-        display: block;
-        margin-bottom: 6px;
-        font-weight: 600;
-    }
-
-    .pers-info__radio-input {
-        margin-right: 4px;
-    }
-
-    .input__section > div:first-child label {
-        margin-right: 12px;
-    }
-
-    .input__section input[type="checkbox"] {
-        margin-right: 8px;
     }
 
     .separator {
