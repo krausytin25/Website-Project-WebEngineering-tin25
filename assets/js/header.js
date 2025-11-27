@@ -22,7 +22,7 @@ function initHeader(container) {
 }
 
 // Header laden & danach initHeader aufrufen
-fetch("../src/components/header.html")
+fetch("../src/components/header.php")
     .then(response => response.text())
     .then(html => {
         const headerContainer = document.getElementById("header");

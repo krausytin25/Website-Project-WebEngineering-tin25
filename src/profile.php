@@ -15,9 +15,9 @@
 <div id="header"></div>
 
 <nav class="breadcrumbs">
-    <a href="index.html">Startseite</a>
+    <a href="index.php">Startseite</a>
     <span class="sep">/</span>
-    <a href="registration.html">Anmeldung</a>
+    <a href="registration.php">Anmeldung</a>
     <span class="sep">/</span>
     <span class="current">Profil</span>
 </nav>
@@ -107,7 +107,7 @@
                         <a href="">
                         <button class="button primary btn--action">Profil bearbeiten</button>
                         </a>
-                        <a href="addNews.html">
+                        <a href="addNews.php">
                         <button class="button primary btn--action">News oder Termine hinzufügen</button>
                         </a>
                     </div>

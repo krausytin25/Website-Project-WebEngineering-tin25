@@ -23,20 +23,20 @@
         <div class="footer-column">
             <h4 class="footer-title">Verein &amp; Abteilungen</h4>
             <ul class="footer-links">
-                <li><a href="us.html">Über uns</a></li>
-                <li><a href="legal.html">Vorstand</a></li>
-                <li><a href="registration.html">Mitglied werden</a></li>
-                <li><a href="legal.html">Satzung &amp; Ordnung</a></li>
-                <li><a href="Abteilungsseite.html">Alle Abteilungen</a></li>
+                <li><a href="us.php">Über uns</a></li>
+                <li><a href="legal.php">Vorstand</a></li>
+                <li><a href="registration.php">Mitglied werden</a></li>
+                <li><a href="legal.php">Satzung &amp; Ordnung</a></li>
+                <li><a href="Abteilungsseite.php">Alle Abteilungen</a></li>
             </ul>
         </div>
 
         <div class="footer-column">
             <h4 class="footer-title">Rechtliches &amp; Service</h4>
             <ul class="footer-links">
-                <li><a href="legal.html">Impressum</a></li>
-                <li><a href="legal.html">Datenschutz</a></li>
-                <li><a href="legal.html">Cookie-Einstellungen</a></li>
+                <li><a href="legal.php">Impressum</a></li>
+                <li><a href="legal.php">Datenschutz</a></li>
+                <li><a href="legal.php">Cookie-Einstellungen</a></li>
             </ul>
         </div>
     </div>

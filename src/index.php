@@ -21,17 +21,17 @@
         <section class="banner">
             <div class="banner-slider">
                 <div class="banner-slide active">
-                    <a href="calendar.html">
+                    <a href="calendar.php">
                         <img src="../assets/images/slides/nt2.png" alt="Banner 1">
                     </a>
                 </div>
                 <div class="banner-slide">
-                    <a href="calendar.html">
+                    <a href="calendar.php">
                         <img src="../assets/images/Gymteam.png" alt="Banner 2">
                     </a>
                 </div>
                 <div class="banner-slide">
-                    <a href="calendar.html">
+                    <a href="calendar.php">
                         <img src="../assets/images/Frauenhandball.png" alt="Banner 3">
                     </a>
                 </div>
@@ -44,7 +44,7 @@
                 <p class="hero-section__subtitle">
                     Egal welche Sportart – bei uns findest du deinen Platz.
                 </p>
-                <a href="registration.html" class="button btn--action accent hero-section__button">
+                <a href="registration.php" class="button btn--action accent hero-section__button">
                     Mitglied werden
                 </a>
             </div>
@@ -54,7 +54,7 @@
 
             <div class="games_header">
                 <h1>Unsere nächsten Spiele</h1>
-                <a href="calendar.html" class="button btn--action primary hideonmobile">Zur Terminübersicht</a>
+                <a href="calendar.php" class="button btn--action primary hideonmobile">Zur Terminübersicht</a>
             </div>
 
             <div class="games_grid">
@@ -104,7 +104,7 @@
 
             </div>
             <div class="games_footer">
-                <a href="calendar.html" class="button btn--action primary full-width-button">Zur Terminübersicht</a>
+                <a href="calendar.php" class="button btn--action primary full-width-button">Zur Terminübersicht</a>
             </div>
         </section>
         <div class="logo">
@@ -143,7 +143,7 @@
         </div>
 
         <div class="ibutton">
-            <a href="us.html" class="button btn--action accent ">Mehr zur Historie</a>
+            <a href="us.php" class="button btn--action accent ">Mehr zur Historie</a>
 
         </div>
 
@@ -155,7 +155,7 @@
             <p>„Beim TSV Dierfeld zählt nicht, ob du der Beste bist – sondern ob du alles gibst. Wenn du das Trikot
                 überziehst, spielst du für mehr als nur dich selbst.“
                 — Lukas Brenner, Kapitän der Fußballmannschaft</p>
-            <a href="soccer.html" class="button btn--action primary">Abteilung Fußball</a>
+            <a href="soccer.php" class="button btn--action primary">Abteilung Fußball</a>
         </div>
         <div class="illustration1">
             <img src="../assets/images/illustration_football.webp" alt="Illustration Fussballer">
@@ -169,7 +169,7 @@
             <p>„In Dierfeld wird Handball mit Herz gespielt. Wir kämpfen füreinander, nicht gegeneinander – das ist
                 unser größter Sieg, egal wie das Spiel ausgeht.“
                 — Mara Köster, Rückraumspielerin</p>
-            <a href="handball.html" class="button btn--action primary">Abteilung Handball</a>
+            <a href="handball.php" class="button btn--action primary">Abteilung Handball</a>
         </div>
         <div class="player2">
             <img src="../assets/images/player_handball.png" alt="Bild von Mara Köster">
@@ -183,14 +183,14 @@
             <p>„Ein gutes Team erkennst du daran, dass niemand Angst hat, den Ball zu rufen. Vertrauen ist unsere größte
                 Stärke.“
                 — Jonas Rehm, Zuspieler der Volleyballmannschaft</p>
-            <a href="volleyball.html" class="button btn--action primary">Abteilung Volleyball</a>
+            <a href="volleyball.php" class="button btn--action primary">Abteilung Volleyball</a>
         </div>
         <div class="illustration3">
             <img src="../assets/images/illustration_volleyball.webp" alt="Illustration Volleyballspieler">
         </div>
 
         <div class="abutton">
-            <a href="Abteilungsseite.html" class="button btn--action accent short">Zu allen Abteilungen</a>
+            <a href="Abteilungsseite.php" class="button btn--action accent short">Zu allen Abteilungen</a>
         </div>
         <div class="footer" id="footer"></div>
     </div>

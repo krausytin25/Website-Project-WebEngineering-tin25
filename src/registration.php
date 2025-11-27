@@ -17,7 +17,7 @@
 <div id="header"></div>
 
 <nav class="breadcrumbs">
-    <a href="index.html">Startseite</a>
+    <a href="index.php">Startseite</a>
     <span class="sep">/</span>
     <span class="current">Anmeldung</span>
 </nav>
@@ -35,7 +35,7 @@
 
             <div class="input__buttons">
                 <button class="button accent btn--action" onclick="history.back()">Abbrechen</button>
-                <button class="button primary btn--action" onclick="window.location='profile.html'">Anmelden</button>
+                <button class="button primary btn--action" onclick="window.location='profile.php'">Anmelden</button>
             </div>
         </section>
     </div>
@@ -219,7 +219,7 @@
 
             <div class="input__buttons">
                 <button class="button accent btn--action" onclick="history.back()">Abbrechen</button>
-                <button class="button primary btn--action" onclick="window.location='profile.html'">Anmelden</button>
+                <button class="button primary btn--action" onclick="window.location='profile.php'">Anmelden</button>
             </div>
 
         </section>

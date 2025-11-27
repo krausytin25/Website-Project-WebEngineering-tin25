@@ -15,7 +15,7 @@
 <body>
 <div id="header"></div>
 <nav class="breadcrumbs">
-    <a href="index.html">Startseite</a>
+    <a href="index.php">Startseite</a>
     <span class="sep">/</span>
     <span class="current">Über uns</span>
 </nav>
@@ -74,10 +74,10 @@
             <h2>Unsere Abteilungen</h2>
 
             <ul class="about-list">
-                <li><a href="soccer.html" class="button primary btn--action">Fußball</a></li>
-                <li><a href="handball.html" class="button accent btn--action">Handball</a></li>
-                <li><a href="volleyball.html" class="button primary btn--action">Volleyball</a></li>
-                <li><a href="gym.html" class="button accent btn--action">Turnen & Gymnastik</a></li>
+                <li><a href="soccer.php" class="button primary btn--action">Fußball</a></li>
+                <li><a href="handball.php" class="button accent btn--action">Handball</a></li>
+                <li><a href="volleyball.php" class="button primary btn--action">Volleyball</a></li>
+                <li><a href="gym.php" class="button accent btn--action">Turnen & Gymnastik</a></li>
             </ul>
         </section>
 

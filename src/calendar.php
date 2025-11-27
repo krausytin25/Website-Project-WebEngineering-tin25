@@ -16,7 +16,7 @@
 <div id="header"></div>
 
 <nav class="breadcrumbs">
-    <a href="index.html">Startseite</a>
+    <a href="index.php">Startseite</a>
     <span class="sep">/</span>
     <span class="current">Kalender</span>
 </nav>
