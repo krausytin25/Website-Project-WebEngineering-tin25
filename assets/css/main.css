@@ -98,3 +98,10 @@ body {
 .btn--action:active {
     transform: translateY(0);
 }
+
+/* --- Muss wen hinzugefügt, auf alle Seite angepasst werden. Design jeweils anpassen.
+* {
+    margin: 0;
+    padding: 0;
+}
+ */

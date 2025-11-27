@@ -1,22 +1,16 @@
-/* ======================= GLOBAL ======================= */
-
-* {
-    margin: 0;
-    padding: 0;
-}
-
 /* ======================= DESKTOP GRID ======================= */
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(10, 1fr);
+    grid-template-rows: repeat(11, 1fr);
     height: 100vh;
     gap: 0;
 
     grid-template-areas:
         "header header header"
         "banner banner banner"
+        "hero hero hero"
         "games-section games-section games-section"
         "logo imageT imageT"
         "ibutton imageT imageT"
@@ -27,14 +21,11 @@
         "footer footer footer";
 }
 
-
-/* ======================= BANNER ======================= */
-
 .banner {
     grid-area: banner;
     margin: 15px;
     border-radius: var(--radius-lg);
-    overflow: hidden;                 /* damit Bilder nicht überstehen */
+    overflow: hidden;
     position: relative;
     height: 500px;
     background: #ccc;
@@ -49,7 +40,7 @@
 .banner-slide {
     position: absolute;
     top: 0;
-    left: 100%;                       /* Start: rechts außerhalb */
+    left: 100%;
     width: 100%;
     height: 100%;
     opacity: 0;
@@ -59,12 +50,12 @@
 }
 
 .banner-slide.active {
-    left: 0;                          /* sichtbar */
+    left: 0;
     opacity: 1;
 }
 
 .banner-slide.exit-left {
-    left: -100%;                      /* raus nach links */
+    left: -100%;
     opacity: 0;
 }
 
@@ -143,10 +134,7 @@
     .games_footer a{
         display: none;
     }
-
 }
-
-/* ======================= LOGO & TEXT ======================= */
 
 .logo {
     grid-area: logo;
@@ -184,8 +172,6 @@
     justify-self: center;
     margin: 50px 0 150px;
 }
-
-/* ======================= FUSSBALL BLOCK ======================= */
 
 .player1,
 .sportT1,
@@ -225,8 +211,6 @@
     width: 33.33vw;
 }
 
-/* ======================= HANDBALL BLOCK ======================= */
-
 .player2,
 .sportT2,
 .illustration2 {
@@ -264,8 +248,6 @@
 .illustration2 img {
     width: 33.33vw;
 }
-
-/* ======================= VOLLEYBALL BLOCK ======================= */
 
 .player3,
 .sportT3,
@@ -305,13 +287,64 @@
     width: 33.33vw;
 }
 
-/* ======================= ABTEILUNGEN BUTTON ======================= */
-
 .abutton {
     grid-area: abutton;
     text-align: right;
     margin: 0 50px 25px 0;
 }
+
+.hero-section {
+    grid-area: hero;
+    width: 100%;
+    margin: 40px 0 60px;
+    padding-bottom: 15px;
+    background: linear-gradient(
+            135deg,
+            var(--petrol) 0%,
+            #2a7e80 100%
+    );
+    border-radius: 20px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-section__inner {
+    max-width: 700px;
+    margin: 0 auto;
+    color: white;
+}
+
+.hero-section__title {
+    margin-bottom: 15px;
+    font-family: var(--font-heading), serif;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--offwhite);
+}
+
+.hero-section__subtitle {
+    margin-bottom: 30px;
+    font-family: var(--font-body), sans-serif;
+    opacity: 0.95;
+    line-height: 1.5;
+    color: var(--offwhite);
+}
+
+.hero-section__button {
+    font-size: 1.4rem;
+    padding: 18px 40px;
+    border-radius: 20px;
+    background: var(--terracotta);
+    transition: 0.25s ease;
+}
+
+.hero-section__button:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.07);
+}
+
 
 /* ======================= MEDIA: HIDE CERTAIN ELEMENTS ======================= */
 
@@ -331,10 +364,11 @@
 
     .grid-container {
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(14, auto);
+        grid-template-rows: repeat(15, auto);
         grid-template-areas:
             "header header header"
             "banner banner banner"
+            "hero hero hero"
             "games-section games-section games-section"
             "logo logo logo"
             "imageT imageT imageT"
@@ -361,7 +395,6 @@
         display: none;
     }
 
-    /* Mobile Radius-Anpassungen */
     .player1 { border-top-right-radius: 25px; margin-bottom: 0; }
     .sportT1 { border-top-right-radius: 0; border-bottom-right-radius: 25px; }
 
@@ -371,16 +404,38 @@
     .player3 { border-top-right-radius: 25px; margin-bottom: 0; }
     .sportT3 { border-top-right-radius: 0; border-bottom-right-radius: 25px; }
 
-    /* Illustrationen ausblenden */
     .illustration1,
     .illustration2,
     .illustration3{
-        display: none;}
+        display: none;
+    }
+
     .abutton{
         display: grid;
         width: 100%;
     }
 
+    .hero-section {
+        width: 100%;
+        max-width: 100%;
+        margin: 20px 0;
+        padding: 40px 20px;
+        box-sizing: border-box;
+    }
 
+    .hero-section__title {
+        font-size: 1.9rem;
+    }
 
+    .hero-section__subtitle {
+        font-size: 1.05rem;
+    }
+
+    .hero-section__button {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 14px 20px;
+        display: block;
+    }
 }
