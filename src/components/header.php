@@ -1,9 +1,9 @@
-<!-- src/components/header.html -->
+<!-- src/components/header.php -->
 <header class="site-header primary">
     <div class="site-header__inner">
 
         <!-- Logo + Vereinsname -->
-        <a href="index.html" class="brand">
+        <a href="index.php" class="brand">
             <img src="../../assets/images/LogoSchriftWeis.png"
                  alt="TSV Dierfeld Logo"
                  class="brand__logo">
@@ -23,8 +23,8 @@
         <!-- Navigation -->
         <nav class="main-nav">
             <ul class="main-nav__list">
-                <li><a href="index.html">Startseite</a></li>
-                <li><a href="us.html">Über uns</a></li>
+                <li><a href="index.php">Startseite</a></li>
+                <li><a href="us.php">Über uns</a></li>
 
                 <!-- Abteilungen mit Untermenü -->
                 <li class="nav-item nav-item--has-submenu">
@@ -35,20 +35,20 @@
                         <span class="submenu-toggle__icon">▾</span>
                     </button>
                     <ul class="submenu">
-                        <li><a href="soccer.html">Fußball</a></li>
-                        <li><a href="handball.html">Handball</a></li>
-                        <li><a href="volleyball.html">Volleyball</a></li>
-                        <li><a href="gym.html">Turnen</a></li>
-                        <li><a href="abteilungsseite.html">Alle Abteilungen</a></li>
+                        <li><a href="soccer.php">Fußball</a></li>
+                        <li><a href="handball.php">Handball</a></li>
+                        <li><a href="volleyball.php">Volleyball</a></li>
+                        <li><a href="gym.php">Turnen</a></li>
+                        <li><a href="abteilungsseite.php">Alle Abteilungen</a></li>
                     </ul>
                 </li>
 
-                <li><a href="calendar.html">Termine</a></li>
+                <li><a href="calendar.php">Termine</a></li>
             </ul>
 
             <div class="header-actions">
-                <a href="registration.html" class="button accent btn--action">Mitglied werden</a>
-                <a href="registration.html" class="button button--outline">LOGIN</a>
+                <a href="registration.php" class="button accent btn--action">Mitglied werden</a>
+                <a href="registration.php" class="button button--outline">LOGIN</a>
             </div>
         </nav>
 

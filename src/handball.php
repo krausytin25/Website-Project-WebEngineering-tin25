@@ -15,9 +15,9 @@
 <div id="header"></div>
 
 <nav class="breadcrumbs">
-    <a href="index.html">Startseite</a>
+    <a href="index.php">Startseite</a>
     <span class="sep">/</span>
-    <a href="Abteilungsseite.html">Abteilungen</a>
+    <a href="Abteilungsseite.php">Abteilungen</a>
     <span class="sep">/</span>
     <span class="current">Handball</span>
 </nav>
