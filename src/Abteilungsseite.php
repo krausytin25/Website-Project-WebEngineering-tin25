@@ -63,7 +63,7 @@
                 Ob in der Halle oder im Sand – hier zählt der Teamgeist, die Bewegung und die Freude am gemeinsamen Erfolg.
                 Von Anfängern bis zu erfahrenen Spielerinnen und Spielern bieten wir allen die Möglichkeit, Teil eines engagierten und lebendigen Teams zu werden.
             </p>
-            <a href="volleyball.php" class="button primary btn--action">Mehr Infos</a>
+            <a href="volleyball.html" class="button primary btn--action">Mehr Infos</a>
         </div>
     </div>
 
@@ -79,7 +79,7 @@
                 die Teil einer dynamischen, motivierten und unterstützenden Gruppe werden möchten.
                 Hier wachsen wir zusammen über uns hinaus – mit Spaß, Engagement und Teamgeist.
             </p>
-            <a href="gym.php" class="button primary btn--action">Mehr Infos</a>
+            <a href="gym.html" class="button primary btn--action">Mehr Infos</a>
         </div>
     </div>
 

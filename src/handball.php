@@ -6,7 +6,7 @@
     <title>Abteilung Handball</title>
 
     <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/handball.css">
+    <link rel="stylesheet" href="../assets/css/sports.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/breadcrumb.css">
