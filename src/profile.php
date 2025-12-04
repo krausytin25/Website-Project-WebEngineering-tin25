@@ -28,6 +28,9 @@
             <div class="profile-avatar">
                 <span class="profile-avatar__initials">MS</span>
             </div>
+
+
+
             <div class="profile-main-info">
                 <h1>Max Schneider</h1>
                 <p class="profile-role">Mitglied · Spieler Herren 1</p>
@@ -36,6 +39,11 @@
                     <span class="badge badge--terracotta">Herrenmannschaft</span>
                     <span class="badge badge--terracotta">Seit 2019 dabei</span>
                 </div>
+
+            </div>
+            <div class="profile-actions-header">
+                <a href="index.php">
+                    <button class="button accent btn--action">Ausloggen</button></a>
             </div>
         </div>
 
