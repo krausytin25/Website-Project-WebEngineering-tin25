@@ -122,7 +122,7 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 600px) {
 
     .add-entry__section {
         align-items: stretch;

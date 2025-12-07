@@ -6,7 +6,7 @@
     <title>Abteilung Fußball</title>
 
     <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/soccer.css">
+    <link rel="stylesheet" href="../assets/css/abteilung-detail.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/breadcrumb.css">
