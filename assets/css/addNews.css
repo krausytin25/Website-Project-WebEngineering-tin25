@@ -121,6 +121,50 @@
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
+/* Flash-Messages (Erfolg / Fehler) */
+.flash-message {
+    position: fixed;
+    top: 80px;              /* etwas unter dem Header */
+    right: 20px;
+    z-index: 9999;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    background-color: #ffffff;
+    color: var(--anthracite);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    padding: 10px 14px;
+
+    font-family: "Open Sans", sans-serif;
+    font-size: 0.9rem;
+
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.flash-message strong {
+    font-size: 0.95rem;
+}
+
+/* Varianten für Erfolg / Fehler */
+.flash-message--success {
+    border-left: 4px solid var(--petrol);
+}
+
+.flash-message--error {
+    border-left: 4px solid var(--terracotta);
+}
+
+/* ausgeblendeter Zustand */
+.flash-message--hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+}
 
 @media (max-width: 600px) {
 
