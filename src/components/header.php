@@ -1,4 +1,11 @@
 <!-- src/components/header.php -->
+
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <header class="site-header primary">
     <div class="site-header__inner">
 
@@ -47,8 +54,23 @@
             </ul>
 
             <div class="header-actions">
-                <a href="registration.php" class="button accent btn--action">Mitglied werden</a>
-                <a href="registration.php" class="button button--outline">LOGIN</a>
+
+                <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true): ?>
+
+                    <!-- Eingeloggt: „Mitglied werden“ → Profil -->
+                    <a href="profile.php" class="button accent btn--action">Profil</a>
+
+                    <!-- Eingeloggt → Logout -->
+                    <a href="logout.php" class="button button--outline">Logout</a>
+
+                <?php else: ?>
+
+                    <!-- Nicht eingeloggt → klassisch -->
+                    <a href="registration.php" class="button accent btn--action">Mitglied werden</a>
+                    <a href="registration.php" class="button button--outline">Login</a>
+
+                <?php endif; ?>
+
             </div>
         </nav>
 
