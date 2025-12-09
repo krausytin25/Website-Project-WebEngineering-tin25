@@ -74,6 +74,30 @@
     margin: 0 0 12px;
 }
 
+.calendar-card .calendar-list {
+    max-height: 650px;   /* Höhe nach Geschmack */
+    overflow-y: auto;
+    padding-right: 10px; /* Platz für Scrollbar */
+}
+
+.calendar-card .calendar-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.calendar-card .calendar-list::-webkit-scrollbar-track {
+    background: #e6e6e6;
+    border-radius: 10px;
+}
+
+.calendar-card .calendar-list::-webkit-scrollbar-thumb {
+    background: var(--petrol);
+    border-radius: 10px;
+}
+
+.calendar-card .calendar-list::-webkit-scrollbar-thumb:hover {
+    background: #0f6465;
+}
+
 .calendar-event {
     display: flex;
     gap: 12px;
