@@ -1,3 +1,93 @@
+<?php
+session_start();
+
+// -------------------------------------------
+// 1. Bereits eingeloggt? -> Weiterleiten
+// -------------------------------------------
+if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true) {
+    header('Location: index.php');
+    exit;
+}
+
+$error = '';
+
+
+// -------------------------------------------
+// 2. Auto-Login über Cookie
+// -------------------------------------------
+if (isset($_COOKIE['remember_user']) && !empty($_COOKIE['remember_user'])) {
+
+    $emailFromCookie = $_COOKIE['remember_user'];
+
+    try {
+        $pdo = new PDO('mysql:host=localhost;dbname=tsvdierfeld;charset=utf8', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // COOKIE-LOGIN
+        $stmt = $pdo->prepare("SELECT id, email FROM benutzer WHERE email = :email LIMIT 1");
+        $stmt->execute(['email' => $emailFromCookie]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+
+            $_SESSION['loggedIn'] = true;
+            $_SESSION['email'] = $user['email'];
+
+            header('Location: 3_dashboard.php');
+            exit;
+
+        } else {
+            setcookie('remember_user', '', time() - 3600, '/');
+        }
+
+    } catch (PDOException $e) {
+        error_log("DB-Fehler (Cookie-Login): " . $e->getMessage());
+    }
+}
+
+
+// -------------------------------------------
+// 3. Normaler Login per Formular
+// -------------------------------------------
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+
+    $email = $_POST['email'];
+    $password = $_POST['password']; // Klartext-Passwort aus Formular
+
+    try {
+        $pdo = new PDO('mysql:host=localhost;dbname=tsvdierfeld;charset=utf8', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // LOGIN
+        $stmt = $pdo->prepare("SELECT id, email, passwort FROM benutzer WHERE email = :email LIMIT 1");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Passwort prüfen – Klartext-Version
+        if ($user && $password === $user['passwort']) {
+
+            $_SESSION['loggedIn'] = true;
+            $_SESSION['email'] = $user['email'];
+
+            // OPTIONAL: Cookie für Auto-Login aktivieren
+            // setcookie('remember_user', $user['email'], time() + 86400 * 30, '/');
+
+            header("Location: profile.php");
+            exit;
+
+        } else {
+            $error = "E-Mail oder Passwort ist falsch.";
+        }
+
+    } catch (PDOException $e) {
+        error_log("DB-Fehler (Login): " . $e->getMessage());
+        $error = "Es ist ein Fehler aufgetreten.";
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -28,15 +118,23 @@
             <h2>Du bist bereits Mitglied?</h2>
             <p>Logge dich einfach mit deinen bestehenden Nutzerdaten ein.</p>
 
-            <div class="input__double">
-                <label>E-Mail-Adresse<input type="email"></label>
-                <label>Passwort<input type="password"></label>
-            </div>
+            <form action="" method="POST">
+                <div class="input__double">
+                    <label>E-Mail-Adresse
+                        <input type="email" name="email" required>
+                    </label>
 
-            <div class="input__buttons">
-                <button class="button accent btn--action" onclick="history.back()">Abbrechen</button>
-                <button class="button primary btn--action" onclick="window.location='profile.php'">Anmelden</button>
-            </div>
+                    <label>Passwort
+                        <input type="password" name="password" required>
+                    </label>
+                </div>
+
+                <div class="input__buttons">
+                    <button class="button accent btn--action" onclick="history.back()" type="button">Abbrechen</button>
+                    <button class="button primary btn--action" type="submit" name="login">Anmelden</button>
+                </div>
+            </form>
+
         </section>
     </div>
     <div class="page-grid__divider">oder</div>
@@ -219,7 +317,7 @@
 
             <div class="input__buttons">
                 <button class="button accent btn--action" onclick="history.back()">Abbrechen</button>
-                <button class="button primary btn--action" onclick="window.location='profile.php'">Anmelden</button>
+                <button class="button primary btn--action">Anmelden</button>
             </div>
 
         </section>
