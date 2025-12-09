@@ -61,7 +61,7 @@
     color: var(--offwhite);
 }
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     .site-footer__top {
         flex-direction: column;
         gap: 24px;
