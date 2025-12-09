@@ -348,7 +348,7 @@
 
 /* ======================= MEDIA: HIDE CERTAIN ELEMENTS ======================= */
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
     .hidefaster {
         display: none;
     }
@@ -360,7 +360,7 @@
 
 /* ======================= MOBILE GRID ======================= */
 
-@media (max-width: 670px) {
+@media (max-width: 800px) {
 
     .grid-container {
         grid-template-columns: repeat(3, 1fr);

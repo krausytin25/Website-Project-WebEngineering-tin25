@@ -12,9 +12,6 @@
 </head>
 <body>
 <div id="header"></div>
-<nav class="breadcrumbs">
-    <span class="current">Startseite</span>
-</nav>
 <main>
     <div class="grid-container">
 
