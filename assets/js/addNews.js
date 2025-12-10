@@ -42,8 +42,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Speichern irgendwann?
     form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        if (!form.reportValidity()) return;
-        alert("Formular ist gültig. Die Speicherung wird später umgesetzt.");
+        if (!form.reportValidity()) {
+            e.preventDefault();     // nur blockieren, WENN ungültig
+        }
+    });
+
+    // Flash-Messages (Erfolg/Fehler) automatisch ausblenden
+    const flashes = document.querySelectorAll('.flash-message[data-auto-dismiss="true"]');
+    flashes.forEach((flash) => {
+        // nach 3 Sekunden langsam ausblenden
+        setTimeout(() => {
+            flash.classList.add('flash-message--hidden');
+        }, 3000);
+
+        // nach 4 Sekunden komplett entfernen (optional)
+        setTimeout(() => {
+            if (flash.parentNode) {
+                flash.parentNode.removeChild(flash);
+            }
+        }, 4000);
     });
 });
