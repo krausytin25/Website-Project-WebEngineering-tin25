@@ -18,11 +18,11 @@ $isEditMode = isset($_GET['edit']) && $_GET['edit'] === '1';
 /* 2) Profildaten aus rechtem Bereich speichern */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_profile'])) {
 
-    $rolleVerein   = isset($_POST['rolle_verein']) ? $_POST['rolle_verein'] : '';
-    $teamsZeiten   = isset($_POST['teams_trainingszeiten']) ? $_POST['teams_trainingszeiten'] : '';
-    $ehrenamt      = isset($_POST['ehrenamtliche_aufgaben']) ? $_POST['ehrenamtliche_aufgaben'] : '';
-    $spiele        = ($_POST['spiele'] !== '') ? (int)$_POST['spiele'] : null;
-    $tore          = ($_POST['tore']   !== '') ? (int)$_POST['tore']   : null;
+    $rolleVerein = isset($_POST['rolle_verein']) ? $_POST['rolle_verein'] : '';
+    $teamsZeiten = isset($_POST['teams_trainingszeiten']) ? $_POST['teams_trainingszeiten'] : '';
+    $ehrenamt = isset($_POST['ehrenamtliche_aufgaben']) ? $_POST['ehrenamtliche_aufgaben'] : '';
+    $spiele = ($_POST['spiele'] !== '') ? (int)$_POST['spiele'] : null;
+    $tore = ($_POST['tore'] !== '') ? (int)$_POST['tore'] : null;
     $helferEinsatz = ($_POST['helfer'] !== '') ? (int)$_POST['helfer'] : null;
 
     $update = $pdo->prepare("
@@ -39,13 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_profile'])) {
     ");
 
     $update->execute([
-            ':rolle'   => $rolleVerein,
-            ':teams'   => $teamsZeiten,
-            ':ehrenamt'=> $ehrenamt,
-            ':spiele'  => $spiele,
-            ':tore'    => $tore,
-            ':helfer'  => $helferEinsatz,
-            ':email'   => $email,
+            ':rolle' => $rolleVerein,
+            ':teams' => $teamsZeiten,
+            ':ehrenamt' => $ehrenamt,
+            ':spiele' => $spiele,
+            ':tore' => $tore,
+            ':helfer' => $helferEinsatz,
+            ':email' => $email,
     ]);
 
     // nach dem Speichern zurück in die normale Ansicht
@@ -59,16 +59,16 @@ $stmt->execute(['email' => $email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$user) {
-    $displayName      = 'Unbekannter Benutzer';
-    $initials         = '??';
-    $roleText         = 'Mitglied';
-    $emailDisplay     = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
-    $telefon          = '–';
-    $adresse          = '–';
-    $eintritt         = '–';
-    $mitgliedsnummer  = '–';
+    $displayName = 'Unbekannter Benutzer';
+    $initials = '??';
+    $roleText = 'Mitglied';
+    $emailDisplay = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+    $telefon = '–';
+    $adresse = '–';
+    $eintritt = '–';
+    $mitgliedsnummer = '–';
     $geburtsdatumFormatiert = '–';
-    $canAddNews       = false;
+    $canAddNews = false;
 } else {
 
     // Helfer-Funktion
@@ -76,9 +76,9 @@ if (!$user) {
         return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
     };
 
-    $vorname      = isset($user['vorname']) ? $user['vorname'] : '';
-    $nachname     = isset($user['nachname']) ? $user['nachname'] : '';
-    $displayName  = trim($vorname . ' ' . $nachname);
+    $vorname = isset($user['vorname']) ? $user['vorname'] : '';
+    $nachname = isset($user['nachname']) ? $user['nachname'] : '';
+    $displayName = trim($vorname . ' ' . $nachname);
 
     // Initialen für Avatar
     $initials = '';
@@ -114,8 +114,8 @@ if (!$user) {
 
     // Kontakt & Adresse
     $emailDisplay = $h(isset($user['email']) ? $user['email'] : '');
-    $mobil        = isset($user['mobil']) ? $user['mobil'] : '';
-    $telefon      = isset($user['telefon']) ? $user['telefon'] : '';
+    $mobil = isset($user['mobil']) ? $user['mobil'] : '';
+    $telefon = isset($user['telefon']) ? $user['telefon'] : '';
 
     $adresseParts = [];
     if (!empty($user['strasse']) || !empty($user['hausnummer'])) {
@@ -141,7 +141,7 @@ if (!$user) {
     if (!empty($user['eintrittsdatum'])) {
         try {
             $eintrittObj = new DateTime($user['eintrittsdatum']);
-            $eintritt    = $eintrittObj->format('d.m.Y');
+            $eintritt = $eintrittObj->format('d.m.Y');
         } catch (Exception $e) {
             $eintritt = $user['eintrittsdatum'];
         }
@@ -157,7 +157,7 @@ if (!$user) {
     // Geburtstag formatieren
     if (!empty($user['geburtstag'])) {
         try {
-            $geburtsdatumObj        = new DateTime($user['geburtstag']);
+            $geburtsdatumObj = new DateTime($user['geburtstag']);
             $geburtsdatumFormatiert = $geburtsdatumObj->format('d.m.Y');
         } catch (Exception $e) {
             $geburtsdatumFormatiert = $user['geburtstag'];

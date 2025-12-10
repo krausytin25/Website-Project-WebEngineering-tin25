@@ -99,22 +99,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
     // Formulardaten erfassen
     $data = [
-            'anrede'        => $_POST['anrede'],
-            'vorname'       => $_POST['vorname'],
-            'nachname'      => $_POST['nachname'],
-            'geburtstag'    => $_POST['geburtstag'],
-            'mobil'         => $_POST['mobil'],
-            'telefon'       => $_POST['telefon'],
-            'email'         => $_POST['email_reg'],
-            'passwort'      => password_hash($_POST['password_reg'], PASSWORD_DEFAULT),
-            'mitgliedstarif'=> $_POST['mitgliedsart'],
-            'rolle_verein'  => $rollenString,
-            'strasse'       => $_POST['strasse'],
-            'hausnummer'    => $_POST['hausnummer'],
-            'plz'           => $_POST['plz'],
-            'ort'           => $_POST['ort'],
-            'land'          => $_POST['land'],
-            'eintrittsdatum'=> date('Y-m-d'),
+            'anrede' => $_POST['anrede'],
+            'vorname' => $_POST['vorname'],
+            'nachname' => $_POST['nachname'],
+            'geburtstag' => $_POST['geburtstag'],
+            'mobil' => $_POST['mobil'],
+            'telefon' => $_POST['telefon'],
+            'email' => $_POST['email_reg'],
+            'passwort' => password_hash($_POST['password_reg'], PASSWORD_DEFAULT),
+            'mitgliedstarif' => $_POST['mitgliedsart'],
+            'rolle_verein' => $rollenString,
+            'strasse' => $_POST['strasse'],
+            'hausnummer' => $_POST['hausnummer'],
+            'plz' => $_POST['plz'],
+            'ort' => $_POST['ort'],
+            'land' => $_POST['land'],
+            'eintrittsdatum' => date('Y-m-d'),
     ];
 
     try {

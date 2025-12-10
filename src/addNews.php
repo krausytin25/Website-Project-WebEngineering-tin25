@@ -14,12 +14,12 @@ require_once __DIR__ . '/inc/db.php';
 require_once __DIR__ . '/inc/db.php'; // DB-Verbindung
 
 $successMsg = '';
-$errorMsg   = '';
+$errorMsg = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $entryType   = isset($_POST['entryType']) ? $_POST['entryType'] : '';
-    $title       = trim(isset($_POST['title']) ? $_POST['title'] : '');
+    $entryType = isset($_POST['entryType']) ? $_POST['entryType'] : '';
+    $title = trim(isset($_POST['title']) ? $_POST['title'] : '');
     $description = trim(isset($_POST['description']) ? $_POST['description'] : '');
 
     // Grundvalidierung
@@ -32,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             if ($entryType === 'event') {
                 // Termin
-                $date     = isset($_POST['date']) ? $_POST['date'] : '';
-                $time     = isset($_POST['time']) ? $_POST['time'] : '';
+                $date = isset($_POST['date']) ? $_POST['date'] : '';
+                $time = isset($_POST['time']) ? $_POST['time'] : '';
                 $location = trim(isset($_POST['location']) ? $_POST['location'] : '');
 
                 if ($date === '' || $time === '' || $location === '') {
@@ -45,10 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     );
 
                     $stmt->execute([
-                            ':titel'        => $title,
-                            ':datum'        => $date,
-                            ':uhrzeit'      => $time,
-                            ':ort'          => $location,
+                            ':titel' => $title,
+                            ':datum' => $date,
+                            ':uhrzeit' => $time,
+                            ':ort' => $location,
                             ':beschreibung' => $description,
                     ]);
 
@@ -67,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
 
                     $extension = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-                    $filename  = uniqid('news_', true) . '.' . $extension;
-                    $target    = $uploadDir . $filename;
+                    $filename = uniqid('news_', true) . '.' . $extension;
+                    $target = $uploadDir . $filename;
 
                     if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
                         // Pfad, der in der DB landet (relativ zu /assets/images)
@@ -83,8 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 );
 
                 $stmt->execute([
-                        ':titel'        => $title,
-                        ':bild'         => $imagePath,
+                        ':titel' => $title,
+                        ':bild' => $imagePath,
                         ':beschreibung' => $description,
                 ]);
 
@@ -230,9 +230,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p class="add-entry__error" data-error-for="description"></p>
                 </div>
                 <div class="add-entry__intro">
-                <p>
-                    * Pflichtfeld
-                </p>
+                    <p>
+                        * Pflichtfeld
+                    </p>
                 </div>
                 <!-- Buttons -->
                 <div class="input__buttons add-entry__buttons">
