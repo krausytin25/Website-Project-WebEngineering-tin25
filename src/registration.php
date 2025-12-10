@@ -10,7 +10,7 @@ if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true) {
 }
 
 $successMsg = '';
-$errorMsg   = '';
+$errorMsg = '';
 
 /* ---------------------------------------------------
    COOKIE LOGIN
@@ -45,7 +45,7 @@ if (isset($_COOKIE['remember_user']) && !empty($_COOKIE['remember_user'])) {
 ----------------------------------------------------*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
-    $email    = $_POST['email'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
     try {
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         if ($user && password_verify($password, $user['passwort'])) {
 
             $_SESSION['loggedIn'] = true;
-            $_SESSION['email']    = $user['email'];
+            $_SESSION['email'] = $user['email'];
 
             header("Location: profile.php");
             exit;
