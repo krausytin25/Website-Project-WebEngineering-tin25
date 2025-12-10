@@ -1,3 +1,27 @@
+<?php
+/** @var PDO $pdo */
+require_once __DIR__ . '/inc/db.php';
+
+// alle News (neueste zuerst)
+$newsStmt = $pdo->query(
+        'SELECT titel, bild, beschreibung
+     FROM News
+     ORDER BY id DESC'
+);
+$newsItems = $newsStmt->fetchAll();
+
+// alle Termine (chronologisch)
+$terminStmt = $pdo->query(
+        'SELECT titel, datum, uhrzeit, veranstaltungsort, beschreibung
+     FROM Termin
+     ORDER BY datum ASC, uhrzeit ASC'
+);
+$termine = $terminStmt->fetchAll();
+
+$wochentage = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -31,90 +55,76 @@
             <section class="news-section">
                 <h2>Aktuelles</h2>
                 <div class="news-section__scroll">
-                <article class="news-card">
-                    <div class="news-card__image-placeholder">
-                        <img src="../assets/images/Trikot.png" alt="Neuer Trikotsatz"/>
-                    </div>
-                    <div class="news-card__content">
-                        <h3>Neuer Trikotsatz für die A-Jugend</h3>
-                        <p>Dank unserer Sponsoren hat die A-Jugend einen neuen Trikotsatz erhalten.</p>
-                    </div>
-                </article>
-
-                <article class="news-card">
-                    <div class="news-card__image-placeholder">
-                        <img src="../assets/images/Spieltag.png" alt="Heimspiel"/>
-                    </div>
-                    <div class="news-card__content">
-                        <h3>Heimspiel am Samstag</h3>
-                        <p>Kommt vorbei und unterstützt die 1. Mannschaft!</p>
-                    </div>
-                </article>
-
-                <article class="news-card">
-                    <div class="news-card__image-placeholder">
-                        <img src="../assets/images/Yoga.png" alt="Yoga Kurs"/>
-                    </div>
-                    <div class="news-card__content">
-                        <h3>Yoga-Kurs startet wieder</h3>
-                        <p>Ab nächster Woche geht es mit dem beliebten Kurs weiter.</p>
-                    </div>
-                </article>
-                    </div>
+                    <?php if (empty($newsItems)): ?>
+                        <p>Aktuell liegen keine News vor.</p>
+                    <?php else: ?>
+                        <?php foreach ($newsItems as $news): ?>
+                            <article class="news-card">
+                                <div class="news-card__image-placeholder">
+                                    <?php if (!empty($news['bild'])): ?>
+                                        <img src="../assets/images/<?= htmlspecialchars($news['bild'], ENT_QUOTES, 'UTF-8') ?>"
+                                             alt="<?= htmlspecialchars($news['titel'], ENT_QUOTES, 'UTF-8') ?>">
+                                    <?php else: ?>
+                                        <div class="news-card__no-image">
+                                            Kein Bild vorhanden
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="news-card__content">
+                                    <h3><?= htmlspecialchars($news['titel'], ENT_QUOTES, 'UTF-8') ?></h3>
+                                    <p><?= nl2br(htmlspecialchars($news['beschreibung'], ENT_QUOTES, 'UTF-8')) ?></p>
+                                </div>
+                            </article>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
             </section>
 
             <aside class="calendar-section">
                 <h2>Terminkalender</h2>
 
-                <div class="calendar-card">
-                    <div class="calendar-card__year">
-                        2025
-                    </div>
+                <div class="calendar-card__year">
+                    <?= date('Y') ?>
+                </div>
 
                     <ul class="calendar-list">
-                        <li class="calendar-event">
-                            <div class="calendar-event__date secondary">
-                                <span class="calendar-event__day">09.11</span>
-                                <span class="calendar-event__weekday">Sonntag</span>
-                            </div>
-                            <div class="calendar-event__info">
-                                <h3>Heimspiel TSV – SV Beispielo</h3>
-                                <p>15:00 Uhr · Sportplatz Dierfeld</p>
-                            </div>
-                        </li>
-
-                        <li class="calendar-event">
-                            <div class="calendar-event__date secondary">
-                                <span class="calendar-event__day">15.11</span>
-                                <span class="calendar-event__weekday">Samstag</span>
-                            </div>
-                            <div class="calendar-event__info">
-                                <h3>Vereinsabend &amp; Ehrungen</h3>
-                                <p>19:30 Uhr · Vereinsheim</p>
-                            </div>
-                        </li>
-
-                        <li class="calendar-event">
-                            <div class="calendar-event__date secondary">
-                                <span class="calendar-event__day">25.11</span>
-                                <span class="calendar-event__weekday">Dienstag</span>
-                            </div>
-                            <div class="calendar-event__info">
-                                <h3>Yoga-Kurs Einsteiger</h3>
-                                <p>18:00 Uhr – 19:00 Uhr · Halle</p>
-                            </div>
-                        </li>
-
-                        <li class="calendar-event">
-                            <div class="calendar-event__date secondary">
-                                <span class="calendar-event__day">13.12</span>
-                                <span class="calendar-event__weekday">Samstag</span>
-                            </div>
-                            <div class="calendar-event__info">
-                                <h3>Winterfest</h3>
-                                <p>ab 11:00 Uhr · Festplatz</p>
-                            </div>
-                        </li>
+                        <?php if (empty($termine)): ?>
+                            <li class="calendar-event">
+                                <div class="calendar-event__info">
+                                    <h3>Aktuell sind keine Termine eingetragen.</h3>
+                                </div>
+                            </li>
+                        <?php else: ?>
+                            <?php foreach ($termine as $termin): ?>
+                                <?php
+                                $dt = new DateTime($termin['datum'] . ' ' . $termin['uhrzeit']);
+                                $tagMonat = $dt->format('d.m');
+                                $wochentag = $wochentage[(int)$dt->format('w')]; // 0..6
+                                $uhrzeit = $dt->format('H:i');
+                                ?>
+                                <li class="calendar-event">
+                                    <div class="calendar-event__date secondary">
+                    <span class="calendar-event__day">
+                        <?= htmlspecialchars($tagMonat, ENT_QUOTES, 'UTF-8') ?>
+                    </span>
+                                        <span class="calendar-event__weekday">
+                        <?= htmlspecialchars($wochentag, ENT_QUOTES, 'UTF-8') ?>
+                    </span>
+                                    </div>
+                                    <div class="calendar-event__info">
+                                        <h3><?= htmlspecialchars($termin['titel'], ENT_QUOTES, 'UTF-8') ?></h3>
+                                        <p>
+                                            <?= htmlspecialchars($uhrzeit, ENT_QUOTES, 'UTF-8') ?>
+                                            ·
+                                            <?= htmlspecialchars($termin['veranstaltungsort'], ENT_QUOTES, 'UTF-8') ?>
+                                        </p>
+                                        <?php if (!empty($termin['beschreibung'])): ?>
+                                            <p><?= nl2br(htmlspecialchars($termin['beschreibung'], ENT_QUOTES, 'UTF-8')) ?></p>
+                                        <?php endif; ?>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </ul>
 
                     <div class="calendar-note">
