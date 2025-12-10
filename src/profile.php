@@ -18,34 +18,34 @@ $isEditMode = isset($_GET['edit']) && $_GET['edit'] === '1';
 /* 2) Profildaten aus rechtem Bereich speichern */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_profile'])) {
 
-    $rolleVerein = isset($_POST['rolle_verein']) ? $_POST['rolle_verein'] : '';
-    $teamsZeiten = isset($_POST['teams_trainingszeiten']) ? $_POST['teams_trainingszeiten'] : '';
-    $ehrenamt = isset($_POST['ehrenamtliche_aufgaben']) ? $_POST['ehrenamtliche_aufgaben'] : '';
-    $spiele = ($_POST['spiele'] !== '') ? (int)$_POST['spiele'] : null;
-    $tore = ($_POST['tore'] !== '') ? (int)$_POST['tore'] : null;
+    $rolleVerein   = isset($_POST['rolle_verein']) ? $_POST['rolle_verein'] : '';
+    $teamsZeiten   = isset($_POST['teams_trainingszeiten']) ? $_POST['teams_trainingszeiten'] : '';
+    $ehrenamt      = isset($_POST['ehrenamtliche_aufgaben']) ? $_POST['ehrenamtliche_aufgaben'] : '';
+    $spiele        = ($_POST['spiele'] !== '') ? (int)$_POST['spiele'] : null;
+    $tore          = ($_POST['tore']   !== '') ? (int)$_POST['tore']   : null;
     $helferEinsatz = ($_POST['helfer'] !== '') ? (int)$_POST['helfer'] : null;
 
     $update = $pdo->prepare("
-    UPDATE benutzer
-    SET
-        rolle_verein      = :rolle,
-        team_info         = :teams,
-        ehrenamt          = :ehrenamt,
-        spiele            = :spiele,
-        tore              = :tore,
-        helfer_einsaetze  = :helfer
-    WHERE email = :email
-    LIMIT 1
-");
+        UPDATE benutzer
+        SET
+            rolle_verein      = :rolle,
+            team_info         = :teams,
+            ehrenamt          = :ehrenamt,
+            spiele            = :spiele,
+            tore              = :tore,
+            helfer_einsaetze  = :helfer
+        WHERE email = :email
+        LIMIT 1
+    ");
 
     $update->execute([
-            ':rolle' => $rolleVerein,
-            ':teams' => $teamsZeiten,
-            ':ehrenamt' => $ehrenamt,
-            ':spiele' => $spiele,
-            ':tore' => $tore,
-            ':helfer' => $helferEinsatz,
-            ':email' => $email,
+            ':rolle'   => $rolleVerein,
+            ':teams'   => $teamsZeiten,
+            ':ehrenamt'=> $ehrenamt,
+            ':spiele'  => $spiele,
+            ':tore'    => $tore,
+            ':helfer'  => $helferEinsatz,
+            ':email'   => $email,
     ]);
 
     // nach dem Speichern zurück in die normale Ansicht
@@ -59,15 +59,16 @@ $stmt->execute(['email' => $email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$user) {
-    // Falls der Benutzer in der DB nicht (mehr) existiert
-    $displayName = 'Unbekannter Benutzer';
-    $initials = '??';
-    $roleText = 'Mitglied';
-    $emailDisplay = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
-    $telefon = '–';
-    $adresse = '–';
-    $eintritt = '–';
-    $mitgliedsnummer = '–';
+    $displayName      = 'Unbekannter Benutzer';
+    $initials         = '??';
+    $roleText         = 'Mitglied';
+    $emailDisplay     = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+    $telefon          = '–';
+    $adresse          = '–';
+    $eintritt         = '–';
+    $mitgliedsnummer  = '–';
+    $geburtsdatumFormatiert = '–';
+    $canAddNews       = false;
 } else {
 
     // Helfer-Funktion
@@ -75,9 +76,9 @@ if (!$user) {
         return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
     };
 
-    $vorname = isset($user['vorname']) ? $user['vorname'] : '';
-    $nachname = isset($user['nachname']) ? $user['nachname'] : '';
-    $displayName = trim($vorname . ' ' . $nachname);
+    $vorname      = isset($user['vorname']) ? $user['vorname'] : '';
+    $nachname     = isset($user['nachname']) ? $user['nachname'] : '';
+    $displayName  = trim($vorname . ' ' . $nachname);
 
     // Initialen für Avatar
     $initials = '';
@@ -113,15 +114,23 @@ if (!$user) {
 
     // Kontakt & Adresse
     $emailDisplay = $h(isset($user['email']) ? $user['email'] : '');
-    $mobil = isset($user['mobil']) ? $user['mobil'] : '';
-    $telefon = isset($user['telefon']) ? $user['telefon'] : '';
+    $mobil        = isset($user['mobil']) ? $user['mobil'] : '';
+    $telefon      = isset($user['telefon']) ? $user['telefon'] : '';
 
     $adresseParts = [];
     if (!empty($user['strasse']) || !empty($user['hausnummer'])) {
-        $adresseParts[] = trim((isset($user['strasse']) ? $user['strasse'] : '') . ' ' . (isset($user['hausnummer']) ? $user['hausnummer'] : ''));
+        $adresseParts[] = trim(
+                (isset($user['strasse']) ? $user['strasse'] : '')
+                . ' ' .
+                (isset($user['hausnummer']) ? $user['hausnummer'] : '')
+        );
     }
     if (!empty($user['plz']) || !empty($user['ort'])) {
-        $adresseParts[] = trim((isset($user['plz']) ? $user['plz'] : '') . ' ' . (isset($user['ort']) ? $user['ort'] : ''));
+        $adresseParts[] = trim(
+                (isset($user['plz']) ? $user['plz'] : '')
+                . ' ' .
+                (isset($user['ort']) ? $user['ort'] : '')
+        );
     }
     if (!empty($user['land'])) {
         $adresseParts[] = $user['land'];
@@ -132,7 +141,7 @@ if (!$user) {
     if (!empty($user['eintrittsdatum'])) {
         try {
             $eintrittObj = new DateTime($user['eintrittsdatum']);
-            $eintritt = $eintrittObj->format('d.m.Y');
+            $eintritt    = $eintrittObj->format('d.m.Y');
         } catch (Exception $e) {
             $eintritt = $user['eintrittsdatum'];
         }
@@ -145,16 +154,22 @@ if (!$user) {
             ? $user['mitgliedsnummer']
             : '–';
 
-    // Geburtstag schön formatieren
+    // Geburtstag formatieren
     if (!empty($user['geburtstag'])) {
         try {
-            $geburtsdatumObj = new DateTime($user['geburtstag']);
+            $geburtsdatumObj        = new DateTime($user['geburtstag']);
             $geburtsdatumFormatiert = $geburtsdatumObj->format('d.m.Y');
         } catch (Exception $e) {
             $geburtsdatumFormatiert = $user['geburtstag'];
         }
     } else {
         $geburtsdatumFormatiert = '–';
+    }
+
+    // darf News/Termine hinzufügen? (wenn Rolle "Abteilungsleiter" gesetzt ist)
+    $canAddNews = false;
+    if (!empty($user['rolle_verein'])) {
+        $canAddNews = (stripos($user['rolle_verein'], 'abteilungsleiter') !== false);
     }
 }
 ?>
@@ -194,7 +209,6 @@ if (!$user) {
                 <p class="profile-role"><?= htmlspecialchars($roleText, ENT_QUOTES, 'UTF-8') ?></p>
 
                 <div class="profile-badges">
-                    <!-- Hier könntest du später dynamische Badges einbauen -->
                     <span class="badge badge--terracotta">Mitglied</span>
                     <?php if (!empty($user['mitgliedstarif'])): ?>
                         <span class="badge badge--terracotta">
@@ -247,7 +261,7 @@ if (!$user) {
                     <h2>Im Verein aktiv</h2>
 
                     <?php if (!$isEditMode): ?>
-                        <!-- ANZEIGE-MODUS (nur Text) -->
+                        <!-- ANZEIGE-MODUS --------------------------------------->
                         <ul class="profile-activity-list">
                             <li>
                                 <h3>Rolle im Verein</h3>
@@ -272,36 +286,43 @@ if (!$user) {
                         <h2>Statistik</h2>
                         <div class="profile-stats">
                             <div class="profile-stat">
-                <span class="profile-stat__number">
-                    <?= isset($user['spiele']) ? (int)$user['spiele'] : 0 ?>
-                </span>
+                                <span class="profile-stat__number">
+                                    <?= isset($user['spiele']) ? (int)$user['spiele'] : 0 ?>
+                                </span>
                                 <span class="profile-stat__label">Spiele</span>
                             </div>
                             <div class="profile-stat">
-                <span class="profile-stat__number">
-                    <?= isset($user['tore']) ? (int)$user['tore'] : 0 ?>
-                </span>
+                                <span class="profile-stat__number">
+                                    <?= isset($user['tore']) ? (int)$user['tore'] : 0 ?>
+                                </span>
                                 <span class="profile-stat__label">Tore</span>
                             </div>
                             <div class="profile-stat">
-                <span class="profile-stat__number">
-                    <?= isset($user['helfer_einsaetze']) ? (int)$user['helfer_einsaetze'] : 0 ?>
-                </span>
+                                <span class="profile-stat__number">
+                                    <?= isset($user['helfer_einsaetze']) ? (int)$user['helfer_einsaetze'] : 0 ?>
+                                </span>
                                 <span class="profile-stat__label">Einsätze als Helfer</span>
                             </div>
                         </div>
 
                         <div class="profile-actions">
                             <a href="profile.php?edit=1">
-                                <button class="button primary btn--action" type="button">Profil bearbeiten</button>
+                                <button class="button primary btn--action" type="button">
+                                    Profil bearbeiten
+                                </button>
                             </a>
-                            <a href="addNews.php">
-                                <button class="button primary btn--action" type="button">News oder Termine hinzufügen</button>
-                            </a>
+
+                            <?php if ($canAddNews): ?>
+                                <a href="addNews.php">
+                                    <button class="button primary btn--action" type="button">
+                                        News oder Termine hinzufügen
+                                    </button>
+                                </a>
+                            <?php endif; ?>
                         </div>
 
                     <?php else: ?>
-                        <!-- BEARBEITUNGS-MODUS (mit TEXTFELDERN) -->
+                        <!-- BEARBEITUNGS-MODUS ---------------------------------->
                         <form method="post" class="profile-edit-form">
                             <ul class="profile-activity-list">
                                 <li>

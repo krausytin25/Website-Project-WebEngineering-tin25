@@ -1,4 +1,14 @@
 <?php
+
+session_start();
+
+// Prüfen, ob eingeloggt
+if (empty($_SESSION['loggedIn']) || empty($_SESSION['email'])) {
+    header('Location: registration.php');
+    exit;
+}
+
+require_once __DIR__ . '/inc/db.php';
 //global $pdo;
 /** @var PDO $pdo */
 require_once __DIR__ . '/inc/db.php'; // DB-Verbindung
@@ -50,7 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $imagePath = null;
 
                 if (!empty($_FILES['image']['name'])) {
-                    // absoluter Server-Pfad: /src/.. = Projektroot → /assets/images/uploads/
                     $uploadDir = __DIR__ . '/../assets/images/uploads/';
 
                     if (!is_dir($uploadDir)) {
