@@ -8,7 +8,6 @@ if (empty($_SESSION['loggedIn']) || empty($_SESSION['email'])) {
     exit;
 }
 
-require_once __DIR__ . '/inc/db.php';
 //global $pdo;
 /** @var PDO $pdo */
 require_once __DIR__ . '/inc/db.php'; // DB-Verbindung
