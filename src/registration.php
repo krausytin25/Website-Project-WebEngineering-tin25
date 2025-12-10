@@ -78,20 +78,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
     // Formulardaten erfassen
     $data = [
-            'anrede'        => $_POST['anrede'],
-            'vorname'       => $_POST['vorname'],
-            'nachname'      => $_POST['nachname'],
-            'geburtstag'    => $_POST['geburtstag'],
-            'mobil'         => $_POST['mobil'],
-            'telefon'       => $_POST['telefon'],
-            'email'         => $_POST['email_reg'],
-            'passwort'      => password_hash($_POST['password_reg'], PASSWORD_DEFAULT),
-            'mitgliedstarif'=> $_POST['mitgliedsart'],
-            'strasse'       => $_POST['strasse'],
-            'hausnummer'    => $_POST['hausnummer'],
-            'plz'           => $_POST['plz'],
-            'ort'           => $_POST['ort'],
-            'land'          => $_POST['land'],
+            'anrede' => $_POST['anrede'],
+            'vorname' => $_POST['vorname'],
+            'nachname' => $_POST['nachname'],
+            'geburtstag' => $_POST['geburtstag'],
+            'mobil' => $_POST['mobil'],
+            'telefon' => $_POST['telefon'],
+            'email' => $_POST['email_reg'],
+            'passwort' => password_hash($_POST['password_reg'], PASSWORD_DEFAULT),
+            'mitgliedstarif' => $_POST['mitgliedsart'],
+            'strasse' => $_POST['strasse'],
+            'hausnummer' => $_POST['hausnummer'],
+            'plz' => $_POST['plz'],
+            'ort' => $_POST['ort'],
+            'land' => $_POST['land'],
+            'eintrittsdatum' => date('Y-m-d'),
     ];
 
     try {
@@ -108,13 +109,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
             // Registrierung speichern
             $stmt = $pdo->prepare("
-                INSERT INTO benutzer
-                (anrede, vorname, nachname, geburtstag, mobil, telefon, email, passwort, mitgliedstarif, strasse, hausnummer, plz, ort, land)
-                VALUES
-                (:anrede, :vorname, :nachname, :geburtstag, :mobil, :telefon, :email, :passwort, :mitgliedstarif, :strasse, :hausnummer, :plz, :ort, :land)
+            INSERT INTO benutzer
+            (anrede, vorname, nachname, geburtstag, mobil, telefon, email, passwort, 
+             mitgliedstarif, strasse, hausnummer, plz, ort, land, eintrittsdatum)
+            VALUES
+            (:anrede, :vorname, :nachname, :geburtstag, :mobil, :telefon, :email, :passwort, 
+             :mitgliedstarif, :strasse, :hausnummer, :plz, :ort, :land, :eintrittsdatum)
             ");
 
             $stmt->execute($data);
+
+            // Mitgliedsnummer nachträglich generieren
+            $userId = $pdo->lastInsertId();
+            $mitgliedsnummer = 'V-' . str_pad($userId, 4, '0', STR_PAD_LEFT);
+
+            $update = $pdo->prepare("
+            UPDATE benutzer 
+            SET mitgliedsnummer = :mitgliedsnummer 
+            WHERE id = :id
+            ");
+            $update->execute([
+                    'mitgliedsnummer' => $mitgliedsnummer,
+                    'id' => $userId,
+            ]);
 
             // Auto-Login
             $_SESSION['loggedIn'] = true;
@@ -130,7 +147,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     }
 }
 ?>
-
 
 
 <!DOCTYPE html>
@@ -358,7 +374,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
                         * Pflichtfelder
                     </p>
                 </div>
-
 
 
                 <div class="input__buttons">
