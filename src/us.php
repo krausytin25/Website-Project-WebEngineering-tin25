@@ -26,17 +26,25 @@
 
         <section class="about-section">
             <h2>Unser Verein</h2>
-           <p>
-            Der Turn- und Sportverein Dierfeld steht für mehr als nur sportliche Leistung – wir stehen für Gemeinschaft, Leidenschaft und Zusammenhalt. Seit unserer Gründung im Jahr 2025 vereinen wir Menschen aller Altersklassen, die sich für Bewegung, Fairplay und Teamgeist begeistern.<br>
-            <br>
-            Unser Ziel ist es, Sport für alle zugänglich zu machen – vom Nachwuchs bis zu den erfahrenen Mitgliedern, von Hobbysportlern bis zu ehrgeizigen Talenten. Dabei legen wir großen Wert auf Respekt, Nachhaltigkeit und soziale Verantwortung – Werte, die unseren Verein weit über den Sport hinaus <br>
-            <br>
-            Mit moderner Infrastruktur, engagierten Trainerinnen und Trainern sowie einem stetig wachsenden Angebot an Sportarten wollen wir Dierfeld zu einem Ort machen, an dem Sport, Spaß und Miteinander selbstverständlich sind.<br>
-            <br>
-            Unsere Vision:
-            Wir wollen den TSV Dierfeld zu einem Verein der Zukunft machen – offen, modern, digital und zugleich tief in der Region verwurzelt. Wir glauben daran, dass Sport Menschen verbindet, Grenzen überwindet und Gemeinschaft schafft.<br>
-            <br>
-            TSV Dierfeld – Bewegung, die verbindet.
+            <p>
+                Der Turn- und Sportverein Dierfeld steht für mehr als nur sportliche Leistung – wir stehen für
+                Gemeinschaft, Leidenschaft und Zusammenhalt. Seit unserer Gründung im Jahr 2025 vereinen wir Menschen
+                aller Altersklassen, die sich für Bewegung, Fairplay und Teamgeist begeistern.<br>
+                <br>
+                Unser Ziel ist es, Sport für alle zugänglich zu machen – vom Nachwuchs bis zu den erfahrenen
+                Mitgliedern, von Hobbysportlern bis zu ehrgeizigen Talenten. Dabei legen wir großen Wert auf Respekt,
+                Nachhaltigkeit und soziale Verantwortung – Werte, die unseren Verein weit über den Sport hinaus <br>
+                <br>
+                Mit moderner Infrastruktur, engagierten Trainerinnen und Trainern sowie einem stetig wachsenden Angebot
+                an Sportarten wollen wir Dierfeld zu einem Ort machen, an dem Sport, Spaß und Miteinander
+                selbstverständlich sind.<br>
+                <br>
+                Unsere Vision:
+                Wir wollen den TSV Dierfeld zu einem Verein der Zukunft machen – offen, modern, digital und zugleich
+                tief in der Region verwurzelt. Wir glauben daran, dass Sport Menschen verbindet, Grenzen überwindet und
+                Gemeinschaft schafft.<br>
+                <br>
+                TSV Dierfeld – Bewegung, die verbindet.
             </p>
         </section>
 
@@ -56,7 +64,8 @@
 
                 <div class="value-card">
                     <h3>Engagement</h3>
-                    <p>Unser Verein lebt durch seine ehrenamtlichen Helfer, die Veranstaltungen, Spiele und Kurse möglich machen.</p>
+                    <p>Unser Verein lebt durch seine ehrenamtlichen Helfer, die Veranstaltungen, Spiele und Kurse
+                        möglich machen.</p>
                 </div>
             </div>
         </section>

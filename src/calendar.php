@@ -18,7 +18,7 @@ $terminStmt = $pdo->query(
 );
 $termine = $terminStmt->fetchAll();
 
-$wochentage = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+$wochentage = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
 ?>
 
 
@@ -87,56 +87,56 @@ $wochentage = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','
                     <?= date('Y') ?>
                 </div>
 
-                    <ul class="calendar-list">
-                        <?php if (empty($termine)): ?>
+                <ul class="calendar-list">
+                    <?php if (empty($termine)): ?>
+                        <li class="calendar-event">
+                            <div class="calendar-event__info">
+                                <h3>Aktuell sind keine Termine eingetragen.</h3>
+                            </div>
+                        </li>
+                    <?php else: ?>
+                        <?php foreach ($termine as $termin): ?>
+                            <?php
+                            $dt = new DateTime($termin['datum'] . ' ' . $termin['uhrzeit']);
+                            $tagMonat = $dt->format('d.m');
+                            $wochentag = $wochentage[(int)$dt->format('w')]; // 0..6
+                            $uhrzeit = $dt->format('H:i');
+                            ?>
                             <li class="calendar-event">
-                                <div class="calendar-event__info">
-                                    <h3>Aktuell sind keine Termine eingetragen.</h3>
-                                </div>
-                            </li>
-                        <?php else: ?>
-                            <?php foreach ($termine as $termin): ?>
-                                <?php
-                                $dt = new DateTime($termin['datum'] . ' ' . $termin['uhrzeit']);
-                                $tagMonat = $dt->format('d.m');
-                                $wochentag = $wochentage[(int)$dt->format('w')]; // 0..6
-                                $uhrzeit = $dt->format('H:i');
-                                ?>
-                                <li class="calendar-event">
-                                    <div class="calendar-event__date secondary">
+                                <div class="calendar-event__date secondary">
                     <span class="calendar-event__day">
                         <?= htmlspecialchars($tagMonat, ENT_QUOTES, 'UTF-8') ?>
                     </span>
-                                        <span class="calendar-event__weekday">
+                                    <span class="calendar-event__weekday">
                         <?= htmlspecialchars($wochentag, ENT_QUOTES, 'UTF-8') ?>
                     </span>
-                                    </div>
-                                    <div class="calendar-event__info">
-                                        <h3><?= htmlspecialchars($termin['titel'], ENT_QUOTES, 'UTF-8') ?></h3>
-                                        <p>
-                                            <?= htmlspecialchars($uhrzeit, ENT_QUOTES, 'UTF-8') ?>
-                                            ·
-                                            <?= htmlspecialchars($termin['veranstaltungsort'], ENT_QUOTES, 'UTF-8') ?>
-                                        </p>
-                                        <?php if (!empty($termin['beschreibung'])): ?>
-                                            <p><?= nl2br(htmlspecialchars($termin['beschreibung'], ENT_QUOTES, 'UTF-8')) ?></p>
-                                        <?php endif; ?>
-                                    </div>
-                                </li>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </ul>
+                                </div>
+                                <div class="calendar-event__info">
+                                    <h3><?= htmlspecialchars($termin['titel'], ENT_QUOTES, 'UTF-8') ?></h3>
+                                    <p>
+                                        <?= htmlspecialchars($uhrzeit, ENT_QUOTES, 'UTF-8') ?>
+                                        ·
+                                        <?= htmlspecialchars($termin['veranstaltungsort'], ENT_QUOTES, 'UTF-8') ?>
+                                    </p>
+                                    <?php if (!empty($termin['beschreibung'])): ?>
+                                        <p><?= nl2br(htmlspecialchars($termin['beschreibung'], ENT_QUOTES, 'UTF-8')) ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </ul>
 
-                    <div class="calendar-note">
-                        <div class="calendar-note__color accent"></div>
-                        <div class="calendar-note__text">
-                            <strong>Hinweis</strong>
-                            <p>Termine können sich ändern</p>
-                        </div>
+                <div class="calendar-note">
+                    <div class="calendar-note__color accent"></div>
+                    <div class="calendar-note__text">
+                        <strong>Hinweis</strong>
+                        <p>Termine können sich ändern</p>
                     </div>
                 </div>
-            </aside>
         </div>
+        </aside>
+    </div>
     </div>
 </main>
 <div id="footer"></div>

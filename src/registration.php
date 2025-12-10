@@ -76,22 +76,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 ----------------------------------------------------*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
+    // Rollen aus Mehrfach-Auswahl holen
+    $allowedRoles = [
+            'Volleyball',
+            'Handball',
+            'Fußball',
+            'Turnen',
+            'Spieler',
+            'Passiv',
+            'Abteilungsleiter'
+    ];
+
+    $selectedRoles = isset($_POST['rollen']) && is_array($_POST['rollen'])
+            ? $_POST['rollen']
+            : [];
+
+    // nur erlaubte Werte übernehmen
+    $selectedRoles = array_intersect($selectedRoles, $allowedRoles);
+
+    // als kommaseparierte Liste speichern
+    $rollenString = implode(', ', $selectedRoles);
+
     // Formulardaten erfassen
     $data = [
-            'anrede'        => $_POST['anrede'],
-            'vorname'       => $_POST['vorname'],
-            'nachname'      => $_POST['nachname'],
-            'geburtstag'    => $_POST['geburtstag'],
-            'mobil'         => $_POST['mobil'],
-            'telefon'       => $_POST['telefon'],
-            'email'         => $_POST['email_reg'],
-            'passwort'      => password_hash($_POST['password_reg'], PASSWORD_DEFAULT),
-            'mitgliedstarif'=> $_POST['mitgliedsart'],
-            'strasse'       => $_POST['strasse'],
-            'hausnummer'    => $_POST['hausnummer'],
-            'plz'           => $_POST['plz'],
-            'ort'           => $_POST['ort'],
-            'land'          => $_POST['land'],
+            'anrede' => $_POST['anrede'],
+            'vorname' => $_POST['vorname'],
+            'nachname' => $_POST['nachname'],
+            'geburtstag' => $_POST['geburtstag'],
+            'mobil' => $_POST['mobil'],
+            'telefon' => $_POST['telefon'],
+            'email' => $_POST['email_reg'],
+            'passwort' => password_hash($_POST['password_reg'], PASSWORD_DEFAULT),
+            'mitgliedstarif' => $_POST['mitgliedsart'],
+            'rolle_verein' => $rollenString,
+            'strasse' => $_POST['strasse'],
+            'hausnummer' => $_POST['hausnummer'],
+            'plz' => $_POST['plz'],
+            'ort' => $_POST['ort'],
+            'land' => $_POST['land'],
+            'eintrittsdatum' => date('Y-m-d'),
     ];
 
     try {
@@ -108,13 +131,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
             // Registrierung speichern
             $stmt = $pdo->prepare("
-                INSERT INTO benutzer
-                (anrede, vorname, nachname, geburtstag, mobil, telefon, email, passwort, mitgliedstarif, strasse, hausnummer, plz, ort, land)
-                VALUES
-                (:anrede, :vorname, :nachname, :geburtstag, :mobil, :telefon, :email, :passwort, :mitgliedstarif, :strasse, :hausnummer, :plz, :ort, :land)
+            INSERT INTO benutzer
+            (anrede, vorname, nachname, geburtstag, mobil, telefon, email, passwort,
+             mitgliedstarif, rolle_verein, strasse, hausnummer, plz, ort, land, eintrittsdatum)
+            VALUES
+            (:anrede, :vorname, :nachname, :geburtstag, :mobil, :telefon, :email, :passwort,
+             :mitgliedstarif, :rolle_verein, :strasse, :hausnummer, :plz, :ort, :land, :eintrittsdatum)
             ");
 
             $stmt->execute($data);
+
+            // Mitgliedsnummer nachträglich generieren
+            $userId = $pdo->lastInsertId();
+            $mitgliedsnummer = 'V-' . str_pad($userId, 4, '0', STR_PAD_LEFT);
+
+            $update = $pdo->prepare("
+            UPDATE benutzer 
+            SET mitgliedsnummer = :mitgliedsnummer 
+            WHERE id = :id
+            ");
+            $update->execute([
+                    'mitgliedsnummer' => $mitgliedsnummer,
+                    'id' => $userId,
+            ]);
 
             // Auto-Login
             $_SESSION['loggedIn'] = true;
@@ -130,7 +169,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     }
 }
 ?>
-
 
 
 <!DOCTYPE html>
@@ -307,6 +345,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
                 </div>
             </section>
 
+            <h3>Rollen im Verein</h3>
+            <div class="separator"></div>
+            <section class="input__section">
+                <div class="membership-type">
+
+                    <label class="membership-type__option">
+                        <input type="checkbox" name="rollen[]" value="Volleyball" class="membership-type__input">
+                        <span class="membership-type__content">
+                            <span class="membership-type__title">Volleyball</span>
+                            <span class="membership-type__price">z.B. Spieler, Trainer</span>
+                        </span>
+                    </label>
+
+                    <label class="membership-type__option">
+                        <input type="checkbox" name="rollen[]" value="Handball" class="membership-type__input">
+                        <span class="membership-type__content">
+                            <span class="membership-type__title">Handball</span>
+                            <span class="membership-type__price">Aktiv oder passiv</span>
+                        </span>
+                    </label>
+
+                    <label class="membership-type__option">
+                        <input type="checkbox" name="rollen[]" value="Fußball" class="membership-type__input">
+                        <span class="membership-type__content">
+                            <span class="membership-type__title">Fußball</span>
+                            <span class="membership-type__price">Aktiv oder passiv</span>
+                        </span>
+                    </label>
+
+                    <label class="membership-type__option">
+                        <input type="checkbox" name="rollen[]" value="Turnen" class="membership-type__input">
+                        <span class="membership-type__content">
+                            <span class="membership-type__title">Turnen</span>
+                            <span class="membership-type__price">Kinder, Jugend, Erwachsene</span>
+                        </span>
+                    </label>
+
+                    <label class="membership-type__option">
+                        <input type="checkbox" name="rollen[]" value="Spieler" class="membership-type__input">
+                        <span class="membership-type__content">
+                            <span class="membership-type__title">Spieler</span>
+                            <span class="membership-type__price">Im aktiven Spielbetrieb</span>
+                        </span>
+                    </label>
+
+                    <label class="membership-type__option">
+                        <input type="checkbox" name="rollen[]" value="Passiv" class="membership-type__input">
+                        <span class="membership-type__content">
+                            <span class="membership-type__title">Passiv</span>
+                            <span class="membership-type__price">Unterstützt den Verein ohne Spielbetrieb</span>
+                        </span>
+                    </label>
+
+                    <label class="membership-type__option">
+                        <input type="checkbox" name="rollen[]" value="Abteilungsleiter" class="membership-type__input">
+                        <span class="membership-type__content">
+                            <span class="membership-type__title">Abteilungsleiter</span>
+                            <span class="membership-type__price">Erweiterte Rechte (z.B. News & Termine)</span>
+                        </span>
+                    </label>
+
+                </div>
+            </section>
+
             <section class="input__section">
                 <h3>Rechnungsadresse</h3>
                 <div class="separator"></div>
@@ -358,7 +460,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
                         * Pflichtfelder
                     </p>
                 </div>
-
 
 
                 <div class="input__buttons">
