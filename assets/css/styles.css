@@ -222,6 +222,10 @@
     --radius: 15px;
     --radius-lg: 25px;
 
+    --responsive-width-wide: 1024px;
+    --responsive-width: 800px;
+    --responsive-width-small: 600px;
+
 
     /* Typografie */
     --font-heading: 'Merriweather';
