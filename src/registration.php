@@ -1,12 +1,16 @@
 <?php
 session_start();
 
+/** @var PDO $pdo */
+require_once __DIR__ . '/inc/db.php';
+
 if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true) {
     header('Location: index.php');
     exit;
 }
 
-$error = '';
+$successMsg = '';
+$errorMsg   = '';
 
 /* ---------------------------------------------------
    COOKIE LOGIN
@@ -16,9 +20,6 @@ if (isset($_COOKIE['remember_user']) && !empty($_COOKIE['remember_user'])) {
     $emailFromCookie = $_COOKIE['remember_user'];
 
     try {
-        $pdo = new PDO('mysql:host=localhost;dbname=tsvdierfeld;charset=utf8', 'root');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         $stmt = $pdo->prepare("SELECT id, email FROM benutzer WHERE email = :email LIMIT 1");
         $stmt->execute(['email' => $emailFromCookie]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -29,11 +30,13 @@ if (isset($_COOKIE['remember_user']) && !empty($_COOKIE['remember_user'])) {
             header('Location: 3_dashboard.php');
             exit;
         } else {
+            // Cookie ist ungültig → löschen
             setcookie('remember_user', '', time() - 3600, '/');
         }
 
     } catch (PDOException $e) {
         error_log("DB-Fehler (Cookie-Login): " . $e->getMessage());
+        $errorMsg = 'Automatischer Login über Cookie ist fehlgeschlagen.';
     }
 }
 
@@ -42,13 +45,10 @@ if (isset($_COOKIE['remember_user']) && !empty($_COOKIE['remember_user'])) {
 ----------------------------------------------------*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
-    $email = $_POST['email'];
+    $email    = $_POST['email'];
     $password = $_POST['password'];
 
     try {
-        $pdo = new PDO('mysql:host=localhost;dbname=tsvdierfeld;charset=utf8', 'root');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         $stmt = $pdo->prepare("SELECT * FROM benutzer WHERE email = :email LIMIT 1");
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -56,18 +56,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         if ($user && password_verify($password, $user['passwort'])) {
 
             $_SESSION['loggedIn'] = true;
-            $_SESSION['email'] = $user['email'];
+            $_SESSION['email']    = $user['email'];
 
             header("Location: profile.php");
             exit;
 
         } else {
-            $error = "E-Mail oder Passwort ist falsch.";
+            // Meldung, wenn Account nicht existiert ODER Passwort falsch
+            $errorMsg = "E-Mail-Adresse oder Passwort ist falsch, oder der Account existiert nicht.";
         }
 
     } catch (PDOException $e) {
         error_log("DB-Fehler (Login): " . $e->getMessage());
-        $error = "Es ist ein Fehler aufgetreten.";
+        $errorMsg = "Beim Login ist ein Fehler aufgetreten.";
     }
 }
 
@@ -118,9 +119,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     ];
 
     try {
-        $pdo = new PDO('mysql:host=localhost;dbname=tsvdierfeld;charset=utf8', 'root');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         // Prüfen ob E-Mail bereits existiert
         $check = $pdo->prepare("SELECT id FROM benutzer WHERE email = :email");
         $check->execute(['email' => $data['email']]);
@@ -195,7 +193,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     <span class="current">Anmeldung</span>
 </nav>
 
+<?php if ($successMsg): ?>
+    <div class="flash-message flash-message--success" data-auto-dismiss="true">
+        <strong>Erfolg</strong>
+        <span><?= htmlspecialchars($successMsg, ENT_QUOTES, 'UTF-8') ?></span>
+    </div>
+<?php endif; ?>
+
+<?php if ($errorMsg): ?>
+    <div class="flash-message flash-message--error" data-auto-dismiss="true">
+        <strong>Fehler</strong>
+        <span><?= htmlspecialchars($errorMsg, ENT_QUOTES, 'UTF-8') ?></span>
+    </div>
+<?php endif; ?>
+
+
 <main class="page-grid">
+
     <div class="page-grid__item page-grid__item--row1">
         <section class="input__section">
             <h2>Du bist bereits Mitglied?</h2>
@@ -486,6 +500,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     </div>
 </main>
 <div id="footer"></div>
+
+<script src="../assets/js/registration.js"></script>
 <script src="../assets/js/header.js"></script>
 <script src="../assets/js/footer.js"></script>
 </body>
