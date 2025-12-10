@@ -170,6 +170,24 @@
     opacity: 0.8;
 }
 
+.profile-edit-form .profile-input {
+    width: 100%;
+    padding: 8px 10px;
+    margin-top: 6px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    background: #F3F4F6;
+}
+
+.profile-input--number {
+    max-width: 80px;
+    text-align: center;
+}
+
+
 /* Responsive -------------------------------------------------------------- */
 
 @media (max-width: 800px) {
