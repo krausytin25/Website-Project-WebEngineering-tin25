@@ -2,6 +2,8 @@
 - [1. Projektbeschreibung](#1-projektbeschreibung)
 - [2. Verwendete Technologien](#2-verwendete-technologien)
   - [Backend](#backend)
+  - [Frontend](#frontend)
+  - [Sonstiges](#sonstiges)
 - [3. Setup-Anleitung](#3-setup-anleitung)
 
 
@@ -29,7 +31,7 @@ Berechtigte Personen (z. B. Abteilungsleiter) können zusätzlich **News und Ter
 ### Frontend
 - HTML5
 - CSS3
-- JavaScript (Vanilla)
+- JavaScript
 
 ### Sonstiges
 - Sessions & Cookies
@@ -60,5 +62,13 @@ DB DUMP als SQL:
 
 DB DUMP als YML:
 [tsvdierfeld.yml](https://github.com/user-attachments/files/24240905/tsvdierfeld.yml)
+
+
+Schritt für Schritt Anleitung für XAMPP:
+
+1. XAMPP installieren und starten:
+
+<img width="494" height="320" alt="image" src="https://github.com/user-attachments/assets/3d0ec28b-7b61-43a7-bd71-429d81474614" />
+
 
 
