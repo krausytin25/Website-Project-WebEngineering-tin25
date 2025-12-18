@@ -37,7 +37,7 @@
     color: var(--terracotta);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
     .legal-section {
         padding: 16px;
     }

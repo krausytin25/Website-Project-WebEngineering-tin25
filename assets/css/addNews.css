@@ -166,7 +166,7 @@
     pointer-events: none;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
 
     .add-entry__section {
         align-items: stretch;

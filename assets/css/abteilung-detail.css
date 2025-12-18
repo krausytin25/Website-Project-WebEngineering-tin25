@@ -25,7 +25,7 @@ p a {
     font-size: 24px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
     img {
         max-height: 250px;
         max-width: 250px;
