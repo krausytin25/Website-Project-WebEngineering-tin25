@@ -1,5 +1,7 @@
 # Website-Project-WebEngineering-tin25
-[1. Zu den Technologien](#projektbeschreibung)
+[1. Projektbeschreibung](#projektbeschreibung)
+[2. Verwendete Technologien](#verwendete-technologien)
+[3. Setup-Anleitung](#setup-anleitung)
 
 
 ---
@@ -14,7 +16,7 @@ Berechtigte Personen (z. B. Abteilungsleiter) können zusätzlich **News und Ter
 
 ---
 
-## 🧰 Verwendete Technologien
+## 2. Verwendete Technologien
 
 ### Backend
 - PHP 8+
@@ -31,7 +33,7 @@ Berechtigte Personen (z. B. Abteilungsleiter) können zusätzlich **News und Ter
 - Modularer Include-Aufbau
 - Responsive Design
 
-## 🛠️ Setup-Anleitung
+## 3. Setup-Anleitung
 
 ### 1️⃣ Voraussetzungen
 - PHP 8.x
