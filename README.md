@@ -1,8 +1,10 @@
 # Website-Project-WebEngineering-tin25
+[1. Zu den Technologien](#projektbeschreibung)
+
 
 ---
 
-## 📌 Projektbeschreibung
+## 1. Projektbeschreibung
 
 Dieses Projekt ist eine vollständige Webanwendung für einen Sportverein (TSV Dierfeld).  
 Die Website dient sowohl als **öffentliche Informationsplattform** als auch als **interner Mitgliederbereich** mit Rollen- und Rechtesystem.
@@ -44,6 +46,6 @@ Berechtigte Personen (z. B. Abteilungsleiter) können zusätzlich **News und Ter
 ### 3️⃣ Datenbank
 - SQL-Dump importieren
 - In inc/db.php Zugangsdaten anpassen:
-` $dsn    = 'mysql:host=127.0.0.1;dbname=tsvDierfeld;charset=utf8mb4';
-  $dbUser = 'root';
-  $dbPass = '';`
+` $dsn    = 'mysql:host=127.0.0.1;dbname=tsvDierfeld;charset=utf8mb4'; `
+` $dbUser = 'root'; `
+` $dbPass = ''; `
