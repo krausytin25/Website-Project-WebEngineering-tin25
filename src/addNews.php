@@ -1,101 +1,26 @@
 <?php
-
-session_start();
-
-// Prüfen, ob eingeloggt
-if (empty($_SESSION['loggedIn']) || empty($_SESSION['email'])) {
-    header('Location: registration.php');
-    exit;
-}
-
-//global $pdo;
 /** @var PDO $pdo */
-require_once __DIR__ . '/inc/db.php'; // DB-Verbindung
+
+require_once __DIR__ . '/inc/auth.php';
+require_once __DIR__ . '/inc/db.php';
 
 $successMsg = '';
 $errorMsg = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+/**
+ * Berechtigung: nur wenn can_add_news = 1
+ */
+$email = $_SESSION['email'] ?? '';
+$stmt = $pdo->prepare('SELECT can_add_news FROM benutzer WHERE email = :email LIMIT 1');
+$stmt->execute(['email' => $email]);
+$userPerm = $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
 
-    $entryType = isset($_POST['entryType']) ? $_POST['entryType'] : '';
-    $title = trim(isset($_POST['title']) ? $_POST['title'] : '');
-    $description = trim(isset($_POST['description']) ? $_POST['description'] : '');
-
-    // Grundvalidierung
-    if (!in_array($entryType, ['news', 'event'], true)) {
-        $errorMsg = 'Bitte wähle, ob News oder Termin.';
-    } elseif ($title === '' || $description === '') {
-        $errorMsg = 'Bitte fülle alle Pflichtfelder aus.';
-    } else {
-
-        try {
-            if ($entryType === 'event') {
-                // Termin
-                $date = isset($_POST['date']) ? $_POST['date'] : '';
-                $time = isset($_POST['time']) ? $_POST['time'] : '';
-                $location = trim(isset($_POST['location']) ? $_POST['location'] : '');
-
-                if ($date === '' || $time === '' || $location === '') {
-                    $errorMsg = 'Bitte alle Termin-Felder ausfüllen.';
-                } else {
-                    $stmt = $pdo->prepare(
-                            'INSERT INTO Termin (titel, datum, uhrzeit, veranstaltungsort, beschreibung)
-                         VALUES (:titel, :datum, :uhrzeit, :ort, :beschreibung)'
-                    );
-
-                    $stmt->execute([
-                            ':titel' => $title,
-                            ':datum' => $date,
-                            ':uhrzeit' => $time,
-                            ':ort' => $location,
-                            ':beschreibung' => $description,
-                    ]);
-
-                    $successMsg = 'Termin wurde gespeichert.';
-                }
-
-            } else {
-                // News
-                $imagePath = null;
-
-                if (!empty($_FILES['image']['name'])) {
-                    $uploadDir = __DIR__ . '/../assets/images/uploads/';
-
-                    if (!is_dir($uploadDir)) {
-                        mkdir($uploadDir, 0775, true);
-                    }
-
-                    $extension = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-                    $filename = uniqid('news_', true) . '.' . $extension;
-                    $target = $uploadDir . $filename;
-
-                    if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-                        // Pfad, der in der DB landet (relativ zu /assets/images)
-                        $imagePath = 'uploads/' . $filename;
-                    }
-                }
-
-
-                $stmt = $pdo->prepare(
-                        'INSERT INTO News (titel, bild, beschreibung)
-                     VALUES (:titel, :bild, :beschreibung)'
-                );
-
-                $stmt->execute([
-                        ':titel' => $title,
-                        ':bild' => $imagePath,
-                        ':beschreibung' => $description,
-                ]);
-
-                $successMsg = 'News wurde gespeichert.';
-            }
-
-        } catch (PDOException $e) {
-            // Fehler behandeln / loggen
-            $errorMsg = 'Beim Speichern ist ein Fehler aufgetreten.';
-        }
-    }
+if (empty($userPerm['can_add_news']) || (int)$userPerm['can_add_news'] !== 1) {
+    header('HTTP/1.1 403 Forbidden');
+    exit('Keine Berechtigung.');
 }
+
+require_once __DIR__ . '/inc/addNewsInc.php';
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -112,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<div id="header"></div>
+<?php include __DIR__ . "/../src/components/header.php"; ?>
 
 <nav class="breadcrumbs">
     <a href="index.php">Startseite</a>
@@ -122,14 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <span class="current">News oder Termin hinzufügen</span>
 </nav>
 
-<?php if ($successMsg): ?>
+<?php if ($successMsg !== ''): ?>
     <div class="flash-message flash-message--success" data-auto-dismiss="true">
         <strong>Erfolg</strong>
         <span><?= htmlspecialchars($successMsg, ENT_QUOTES, 'UTF-8') ?></span>
     </div>
 <?php endif; ?>
 
-<?php if ($errorMsg): ?>
+<?php if ($errorMsg !== ''): ?>
     <div class="flash-message flash-message--error" data-auto-dismiss="true">
         <strong>Fehler</strong>
         <span><?= htmlspecialchars($errorMsg, ENT_QUOTES, 'UTF-8') ?></span>
@@ -169,8 +94,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="input__single add-entry__field-group add-entry__field-group--title">
                     <label class="add-entry__label">
                         Titel*
-                        <input class="add-entry__control" id="entry-title" name="title" type="text"
-                               placeholder="Titel eingeben" required>
+                        <input class="add-entry__control"
+                               id="entry-title"
+                               name="title"
+                               type="text"
+                               placeholder="Titel eingeben"
+                               required>
                     </label>
                     <p class="add-entry__error" data-error-for="title"></p>
                 </div>
@@ -193,7 +122,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="input__single">
                         <label class="add-entry__label">
                             Ort*
-                            <input class="add-entry__control" id="entry-location" name="location" type="text"
+                            <input class="add-entry__control"
+                                   id="entry-location"
+                                   name="location"
+                                   type="text"
                                    placeholder="Veranstaltungsort">
                         </label>
                     </div>
@@ -201,6 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p class="add-entry__error" data-error-for="event"></p>
                 </div>
 
+                <!-- News Bild -->
                 <div class="add-entry__field-group add-entry__field-group--image add-entry__field-group--image-hidden">
                     <label class="add-entry__label">
                         Bild zur News (optional)
@@ -211,7 +144,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                accept="image/jpeg, image/png, image/webp">
                     </label>
 
-                    <!-- Vorschau (optional) -->
                     <div class="add-entry__image-preview" id="entry-image-preview"></div>
                 </div>
 
@@ -228,11 +160,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </label>
                     <p class="add-entry__error" data-error-for="description"></p>
                 </div>
+
                 <div class="add-entry__intro">
-                    <p>
-                        * Pflichtfeld
-                    </p>
+                    <p>* Pflichtfeld</p>
                 </div>
+
                 <!-- Buttons -->
                 <div class="input__buttons add-entry__buttons">
                     <button class="button accent btn--action" type="button" onclick="history.back()">
@@ -246,15 +178,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </section>
 
-
     </div>
 </main>
 
-<div id="footer"></div>
-
+<?php include __DIR__ . "/../src/components/footer.php"; ?>
 <script src="../assets/js/header.js"></script>
-<script src="../assets/js/footer.js"></script>
 <script src="../assets/js/addNews.js"></script>
-
 </body>
 </html>

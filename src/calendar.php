@@ -1,24 +1,10 @@
 <?php
-/** @var PDO $pdo */
+$newsItems = [];
+$termine = [];
+$wochentage = [];
+
 require_once __DIR__ . '/inc/db.php';
-
-// alle News (neueste zuerst)
-$newsStmt = $pdo->query(
-        'SELECT titel, bild, beschreibung
-     FROM News
-     ORDER BY id DESC'
-);
-$newsItems = $newsStmt->fetchAll();
-
-// alle Termine (chronologisch)
-$terminStmt = $pdo->query(
-        'SELECT titel, datum, uhrzeit, veranstaltungsort, beschreibung
-     FROM Termin
-     ORDER BY datum ASC, uhrzeit ASC'
-);
-$termine = $terminStmt->fetchAll();
-
-$wochentage = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+require_once __DIR__ . '/inc/calendarInc.php';
 ?>
 
 
@@ -37,7 +23,7 @@ $wochentage = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freit
 
 </head>
 <body>
-<div id="header"></div>
+<?php include __DIR__ . "/../src/components/header.php"; ?>
 
 <nav class="breadcrumbs">
     <a href="index.php">Startseite</a>
@@ -139,8 +125,7 @@ $wochentage = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freit
     </div>
     </div>
 </main>
-<div id="footer"></div>
+<?php include __DIR__ . "/../src/components/footer.php"; ?>
 <script src="../assets/js/header.js"></script>
-<script src="../assets/js/footer.js"></script>
 </body>
 </html>

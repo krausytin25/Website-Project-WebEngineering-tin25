@@ -12,7 +12,7 @@
 
 </head>
 <body>
-<div id="header"></div>
+<?php include __DIR__ . "/../src/components/header.php"; ?>
 
 <nav class="breadcrumbs">
     <a href="index.php">Startseite</a>
@@ -88,8 +88,7 @@
 
     </div>
 </main>
-<div id="footer"></div>
+<?php include __DIR__ . "/../src/components/footer.php"; ?>
 <script src="../assets/js/header.js"></script>
-<script src="../assets/js/footer.js"></script>
 </body>
 </html>

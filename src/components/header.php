@@ -61,7 +61,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <a href="profile.php" class="button accent btn--action">Profil</a>
 
                     <!-- Eingeloggt → Logout -->
-                    <a href="logout.php" class="button button--outline">Logout</a>
+                    <a href="./inc/logout.php" class="button button--outline">Logout</a>
 
                 <?php else: ?>
 

@@ -1,10 +1,19 @@
+/* ======================= GRID MAPPING (WICHTIG) ======================= */
+.site-header { grid-area: header; }
+.site-footer { grid-area: footer; }
+
 /* ======================= DESKTOP GRID ======================= */
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(11, 1fr);
-    height: 100vh;
+
+    /* Besser als 11x 1fr: Inhalte bestimmen Höhe selbst */
+    grid-template-rows: auto;
+
+    /* wichtig: nicht abschneiden */
+    min-height: 100vh;
+
     gap: 0;
 
     grid-template-areas:
@@ -20,6 +29,8 @@
         ". . abutton"
         "footer footer footer";
 }
+
+/* ======================= BANNER ======================= */
 
 .banner {
     grid-area: banner;
@@ -65,11 +76,7 @@
     object-fit: cover;
 }
 
-.footer {
-    grid-area: footer;
-}
-
-/* ======================= NÄCHSTE SPIELE SECTION ======================= */
+/* ======================= NÄCHSTE SPIELE ======================= */
 
 .games {
     grid-area: games-section;
@@ -136,6 +143,8 @@
     }
 }
 
+/* ======================= LOGO + TEXT ======================= */
+
 .logo {
     grid-area: logo;
     display: grid;
@@ -172,6 +181,8 @@
     justify-self: center;
     margin: 50px 0 150px;
 }
+
+/* ======================= SPORT-BLÖCKE ======================= */
 
 .player1,
 .sportT1,
@@ -293,6 +304,8 @@
     margin: 0 50px 25px 0;
 }
 
+/* ======================= HERO ======================= */
+
 .hero-section {
     grid-area: hero;
     width: 100%;
@@ -345,7 +358,6 @@
     filter: brightness(1.07);
 }
 
-
 /* ======================= MEDIA: HIDE CERTAIN ELEMENTS ======================= */
 
 @media (max-width: 1024px) {
@@ -364,7 +376,7 @@
 
     .grid-container {
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(15, auto);
+        grid-template-rows: auto;
         grid-template-areas:
             "header header header"
             "banner banner banner"

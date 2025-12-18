@@ -1,174 +1,10 @@
 <?php
-session_start();
-
-/** @var PDO $pdo */
-require_once __DIR__ . '/inc/db.php';
-
-if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true) {
-    header('Location: index.php');
-    exit;
-}
-
 $successMsg = '';
 $errorMsg = '';
 
-/* ---------------------------------------------------
-   COOKIE LOGIN
-----------------------------------------------------*/
-if (isset($_COOKIE['remember_user']) && !empty($_COOKIE['remember_user'])) {
-
-    $emailFromCookie = $_COOKIE['remember_user'];
-
-    try {
-        $stmt = $pdo->prepare("SELECT id, email FROM benutzer WHERE email = :email LIMIT 1");
-        $stmt->execute(['email' => $emailFromCookie]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($user) {
-            $_SESSION['loggedIn'] = true;
-            $_SESSION['email'] = $user['email'];
-            header('Location: 3_dashboard.php');
-            exit;
-        } else {
-            // Cookie ist ungültig → löschen
-            setcookie('remember_user', '', time() - 3600, '/');
-        }
-
-    } catch (PDOException $e) {
-        error_log("DB-Fehler (Cookie-Login): " . $e->getMessage());
-        $errorMsg = 'Automatischer Login über Cookie ist fehlgeschlagen.';
-    }
-}
-
-/* ---------------------------------------------------
-   NORMALER LOGIN
-----------------------------------------------------*/
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    try {
-        $stmt = $pdo->prepare("SELECT * FROM benutzer WHERE email = :email LIMIT 1");
-        $stmt->execute(['email' => $email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($user && password_verify($password, $user['passwort'])) {
-
-            $_SESSION['loggedIn'] = true;
-            $_SESSION['email'] = $user['email'];
-
-            header("Location: profile.php");
-            exit;
-
-        } else {
-            // Meldung, wenn Account nicht existiert ODER Passwort falsch
-            $errorMsg = "E-Mail-Adresse oder Passwort ist falsch, oder der Account existiert nicht.";
-        }
-
-    } catch (PDOException $e) {
-        error_log("DB-Fehler (Login): " . $e->getMessage());
-        $errorMsg = "Beim Login ist ein Fehler aufgetreten.";
-    }
-}
-
-/* ---------------------------------------------------
-   REGISTRIERUNG
-----------------------------------------------------*/
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-
-    // Rollen aus Mehrfach-Auswahl holen
-    $allowedRoles = [
-            'Volleyball',
-            'Handball',
-            'Fußball',
-            'Turnen',
-            'Spieler',
-            'Passiv',
-            'Abteilungsleiter'
-    ];
-
-    $selectedRoles = isset($_POST['rollen']) && is_array($_POST['rollen'])
-            ? $_POST['rollen']
-            : [];
-
-    // nur erlaubte Werte übernehmen
-    $selectedRoles = array_intersect($selectedRoles, $allowedRoles);
-
-    // als kommaseparierte Liste speichern
-    $rollenString = implode(', ', $selectedRoles);
-
-    // Formulardaten erfassen
-    $data = [
-            'anrede' => $_POST['anrede'],
-            'vorname' => $_POST['vorname'],
-            'nachname' => $_POST['nachname'],
-            'geburtstag' => $_POST['geburtstag'],
-            'mobil' => $_POST['mobil'],
-            'telefon' => $_POST['telefon'],
-            'email' => $_POST['email_reg'],
-            'passwort' => password_hash($_POST['password_reg'], PASSWORD_DEFAULT),
-            'mitgliedstarif' => $_POST['mitgliedsart'],
-            'rolle_verein' => $rollenString,
-            'strasse' => $_POST['strasse'],
-            'hausnummer' => $_POST['hausnummer'],
-            'plz' => $_POST['plz'],
-            'ort' => $_POST['ort'],
-            'land' => $_POST['land'],
-            'eintrittsdatum' => date('Y-m-d'),
-    ];
-
-    try {
-        // Prüfen ob E-Mail bereits existiert
-        $check = $pdo->prepare("SELECT id FROM benutzer WHERE email = :email");
-        $check->execute(['email' => $data['email']]);
-
-        if ($check->rowCount() > 0) {
-            $error = "Ein Benutzer mit dieser E-Mail-Adresse existiert bereits.";
-        } else {
-
-            // Registrierung speichern
-            $stmt = $pdo->prepare("
-            INSERT INTO benutzer
-            (anrede, vorname, nachname, geburtstag, mobil, telefon, email, passwort,
-             mitgliedstarif, rolle_verein, strasse, hausnummer, plz, ort, land, eintrittsdatum)
-            VALUES
-            (:anrede, :vorname, :nachname, :geburtstag, :mobil, :telefon, :email, :passwort,
-             :mitgliedstarif, :rolle_verein, :strasse, :hausnummer, :plz, :ort, :land, :eintrittsdatum)
-            ");
-
-            $stmt->execute($data);
-
-            // Mitgliedsnummer nachträglich generieren
-            $userId = $pdo->lastInsertId();
-            $mitgliedsnummer = 'V-' . str_pad($userId, 4, '0', STR_PAD_LEFT);
-
-            $update = $pdo->prepare("
-            UPDATE benutzer 
-            SET mitgliedsnummer = :mitgliedsnummer 
-            WHERE id = :id
-            ");
-            $update->execute([
-                    'mitgliedsnummer' => $mitgliedsnummer,
-                    'id' => $userId,
-            ]);
-
-            // Auto-Login
-            $_SESSION['loggedIn'] = true;
-            $_SESSION['email'] = $data['email'];
-
-            header("Location: profile.php");
-            exit;
-        }
-
-    } catch (PDOException $e) {
-        error_log("DB-Fehler (Registrierung): " . $e->getMessage());
-        $error = "Registrierung fehlgeschlagen.";
-    }
-}
+require_once __DIR__ . '/inc/db.php';
+require_once __DIR__ . '/inc/registrationInc.php';
 ?>
-
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -181,11 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/breadcrumb.css">
-
 </head>
 <body>
 
-<div id="header"></div>
+<?php include __DIR__ . "/../src/components/header.php"; ?>
 
 <nav class="breadcrumbs">
     <a href="index.php">Startseite</a>
@@ -193,20 +28,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     <span class="current">Anmeldung</span>
 </nav>
 
-<?php if ($successMsg): ?>
+<?php if ($successMsg !== ''): ?>
     <div class="flash-message flash-message--success" data-auto-dismiss="true">
         <strong>Erfolg</strong>
         <span><?= htmlspecialchars($successMsg, ENT_QUOTES, 'UTF-8') ?></span>
     </div>
 <?php endif; ?>
 
-<?php if ($errorMsg): ?>
+<?php if ($errorMsg !== ''): ?>
     <div class="flash-message flash-message--error" data-auto-dismiss="true">
         <strong>Fehler</strong>
         <span><?= htmlspecialchars($errorMsg, ENT_QUOTES, 'UTF-8') ?></span>
     </div>
 <?php endif; ?>
-
 
 <main class="page-grid">
 
@@ -234,23 +68,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
         </section>
     </div>
+
     <div class="page-grid__divider">oder</div>
 
     <div class="page-grid__item page-grid__item--row3">
         <form action="" method="POST">
             <h2>Du bist noch kein Mitglied?</h2>
             <p>Dann kannst du jetzt ein Kundenkonto anlegen!</p>
-            <h3>Persönliche Daten</h3>
 
+            <h3>Persönliche Daten</h3>
             <div class="separator"></div>
 
             <section class="input__section">
                 <div class="input__radio">
-
                     <p>Anrede*
-
                         <label>
-                            <input class="pers-info__radio-input" type="radio" name="anrede" value="herr">
+                            <input class="pers-info__radio-input" type="radio" name="anrede" value="herr" required>
                             Herr
                         </label>
 
@@ -269,91 +102,91 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
                 <div class="input__double">
                     <label>
                         Vorname*
-                        <input type="text" name="vorname">
+                        <input type="text" name="vorname" required>
                     </label>
 
                     <label>
                         Nachname*
-                        <input type="text" name="nachname">
+                        <input type="text" name="nachname" required>
                     </label>
                 </div>
 
                 <div class="input__single">
                     <label>
-                        Geburtstag*
-                        <input type="date" name="geburtstag">
+                        Geburtstag* (mind. 18 Jahre)
+                        <input type="date" name="geburtstag" required>
                     </label>
                 </div>
 
                 <div class="input__double">
                     <label>
                         Mobil*
-                        <input type="text" name="mobil">
+                        <input type="text" name="mobil" inputmode="tel" pattern="\+?[0-9]+" required>
                     </label>
 
                     <label>
                         Telefon
-                        <input type="text" name="telefon">
+                        <input type="text" name="telefon" inputmode="tel" pattern="\+?[0-9]*">
                     </label>
                 </div>
-
             </section>
 
             <h3>Anmeldedaten</h3>
             <div class="separator"></div>
             <div class="divider"></div>
+
             <section class="input__section">
                 <div class="input__single">
                     <label>
                         E-Mail-Adresse*
-                        <input type="email" name="email_reg">
+                        <input type="email" name="email_reg" required>
                     </label>
                 </div>
 
                 <div class="input__single">
                     <label>
                         Passwort*
-                        <input type="password" name="password_reg">
+                        <input type="password" name="password_reg" required>
                     </label>
                 </div>
-
             </section>
 
             <h3>Mitgliedsart</h3>
             <div class="separator"></div>
+
             <section class="input__section">
                 <div class="membership-type">
 
                     <label class="membership-type__option">
-                        <input type="radio" name="mitgliedsart" value="kinder" class="membership-type__input">
+                        <input type="radio" name="mitgliedsart" value="kinder" class="membership-type__input" required>
                         <span class="membership-type__content">
-                <span class="membership-type__title">Kinder & Jugendliche</span>
-                <span class="membership-type__price">30 € / Jahr</span>
-            </span>
+                            <span class="membership-type__title">Kinder & Jugendliche</span>
+                            <span class="membership-type__price">30 € / Jahr</span>
+                        </span>
                     </label>
 
                     <label class="membership-type__option">
                         <input type="radio" name="mitgliedsart" value="erwachsene" class="membership-type__input">
                         <span class="membership-type__content">
-                <span class="membership-type__title">Erwachsene</span>
-                <span class="membership-type__price">60 € / Jahr</span>
-            </span>
+                            <span class="membership-type__title">Erwachsene</span>
+                            <span class="membership-type__price">60 € / Jahr</span>
+                        </span>
                     </label>
 
                     <label class="membership-type__option">
                         <input type="radio" name="mitgliedsart" value="ermaessigt" class="membership-type__input">
                         <span class="membership-type__content">
-                <span class="membership-type__title">Ermäßigt (Studenten, Azubis, Rentner)</span>
-                <span class="membership-type__price">40 € / Jahr</span>
-            </span>
+                            <span class="membership-type__title">Ermäßigt (Studenten, Azubis, Rentner)</span>
+                            <span class="membership-type__price">40 € / Jahr</span>
+                        </span>
                     </label>
 
                     <label class="membership-type__option">
                         <input type="radio" name="mitgliedsart" value="familie" class="membership-type__input">
                         <span class="membership-type__content">
-                <span class="membership-type__title">Familienmitgliedschaft</span>
-                <span class="membership-type__price">120 € / Jahr</span>
-            </span>
+                            <span class="membership-type__title">Familienmitgliedschaft</span>
+                            <span class="membership-type__price">120 € / Jahr</span>
+                        </span>
                     </label>
 
                 </div>
@@ -361,9 +194,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
             <h3>Rollen im Verein</h3>
             <div class="separator"></div>
+
             <section class="input__section">
                 <div class="membership-type">
-
+                    <!-- Rollen sind nur Info/Text, Rechte werden NICHT daraus abgeleitet -->
                     <label class="membership-type__option">
                         <input type="checkbox" name="rollen[]" value="Volleyball" class="membership-type__input">
                         <span class="membership-type__content">
@@ -416,10 +250,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
                         <input type="checkbox" name="rollen[]" value="Abteilungsleiter" class="membership-type__input">
                         <span class="membership-type__content">
                             <span class="membership-type__title">Abteilungsleiter</span>
-                            <span class="membership-type__price">Erweiterte Rechte (z.B. News & Termine)</span>
+                            <span class="membership-type__price">Hinweis: Rechte werden initial vergeben</span>
                         </span>
                     </label>
-
                 </div>
             </section>
 
@@ -427,57 +260,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
                 <h3>Rechnungsadresse</h3>
                 <div class="separator"></div>
                 <div class="divider"></div>
+
                 <div class="input__double">
                     <label>
                         Straße*
-                        <input type="text" name="strasse">
+                        <input type="text" name="strasse" required>
                     </label>
 
                     <label>
                         Hausnummer*
-                        <input type="text" name="hausnummer">
+                        <input type="text" name="hausnummer" required>
                     </label>
                 </div>
+
                 <div class="input__double">
                     <label>
                         PLZ*
-                        <input type="text" name="plz">
+                        <input type="text" name="plz" inputmode="numeric" pattern="[0-9]+" required>
                     </label>
 
                     <label>
                         Ort*
-                        <input type="text" name="ort">
+                        <input type="text" name="ort" required>
                     </label>
                 </div>
+
                 <div class="input__single">
                     <label>
                         Land*
-                        <input type="text" name="land">
+                        <input type="text" name="land" required>
                     </label>
                 </div>
-
 
                 <div class="input__text">
                     <label>
-                        <input type="checkbox">
-                        Durch das Absenden des Formulars
-                        werden die von dir angegebenen
-                        personenbezogenen Daten durch uns erhoben.
-                        Zur datenschutzrechtlichen Behandlung der von dir gemachten Angaben
-                        verweisen wir im Übrigen auf
-                        unsere Datenschutzerklärung.*
+                        <input type="checkbox" required>
+                        Durch das Absenden des Formulars werden die von dir angegebenen personenbezogenen Daten durch
+                        uns erhoben. Zur datenschutzrechtlichen Behandlung verweisen wir auf unsere
+                        Datenschutzerklärung.*
                     </label>
-
                 </div>
+
                 <div class="input__text">
-                    <p>
-                        * Pflichtfelder
-                    </p>
+                    <p>* Pflichtfelder</p>
                 </div>
-
 
                 <div class="input__buttons">
-                    <button class="button accent btn--action" onclick="history.back()">Abbrechen</button>
+                    <button class="button accent btn--action" onclick="history.back()" type="button">Abbrechen</button>
                     <button class="button primary btn--action" type="submit" name="register">Anmelden</button>
                 </div>
 
@@ -489,8 +318,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
     <div class="page-grid__item page-grid__item--row4">
         <h2>Antrag herunterladen</h2>
-        <p>Drucke und fülle den Antrag ganz einfach aus, schicke ihne an unsere Adresse
-            und werde Mitglied. Ohne Account, ohne Schnickschnak. </p>
+        <p>Drucke und fülle den Antrag ganz einfach aus, schicke ihn an unsere Adresse und werde Mitglied.</p>
 
         <a href="../assets/docs/mitgliedsantrag_tsv_dierfeld.pdf"
            download="Beitrittserklaerung-TSV-Dierfeld.pdf"
@@ -499,10 +327,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         </a>
     </div>
 </main>
-<div id="footer"></div>
 
+<?php include __DIR__ . "/../src/components/footer.php"; ?>
 <script src="../assets/js/registration.js"></script>
 <script src="../assets/js/header.js"></script>
-<script src="../assets/js/footer.js"></script>
 </body>
 </html>
