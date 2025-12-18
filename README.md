@@ -56,8 +56,9 @@ Berechtigte Personen (z. B. Abteilungsleiter) können zusätzlich **News und Ter
 ` $dbUser = 'root'; `
 ` $dbPass = ''; `
 
-Datenbank Dump: 
-[tsvdierfeld.sql](https://github.com/user-attachments/files/24240854/tsvdierfeld.sql)
+
+[tsvdierfeld.sql](https://github.com/user-attachments/files/24240873/tsvdierfeld.sql)
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
