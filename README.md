@@ -19,6 +19,9 @@ Die Website dient sowohl als **öffentliche Informationsplattform** als auch als
 Besucher können sich über den Verein informieren, während registrierte Mitglieder Zugriff auf ein persönliches Profil erhalten.  
 Berechtigte Personen (z. B. Abteilungsleiter) können zusätzlich **News und Termine verwalten**.
 
+Weitere Informationen befinden sich im Wiki:
+https://taiga-dhhdhai-u11685.vm.elestio.app/project/vereinswebsite/wiki/projektdefinition
+
 ---
 
 ## 2. Verwendete Technologien
