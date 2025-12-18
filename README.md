@@ -1,20 +1,49 @@
 # Website-Project-WebEngineering-tin25
 
-Projektstruktur zum beachten:
-Projektbeschreibung – Vereinswebsite TSV Dierfeld
-1. Projektziel
+---
 
-Ziel des Projekts ist die Entwicklung einer modernen, sicheren und benutzerfreundlichen Vereinswebsite für den TSV Dierfeld.
-Die Website soll sowohl als Informationsplattform für Besucher als auch als interne Verwaltungsoberfläche für Vereinsmitglieder dienen.
+## 📌 Projektbeschreibung
 
-Dabei stehen folgende Aspekte im Fokus:
+Dieses Projekt ist eine vollständige Webanwendung für einen Sportverein (TSV Dierfeld).  
+Die Website dient sowohl als **öffentliche Informationsplattform** als auch als **interner Mitgliederbereich** mit Rollen- und Rechtesystem.
 
-Übersichtliche Darstellung von News und Terminen
+Besucher können sich über den Verein informieren, während registrierte Mitglieder Zugriff auf ein persönliches Profil erhalten.  
+Berechtigte Personen (z. B. Abteilungsleiter) können zusätzlich **News und Termine verwalten**.
 
-Mitgliederverwaltung über ein persönliches Benutzerkonto
+---
 
-Klare Rollen- und Rechteverteilung
+## 🧰 Verwendete Technologien
 
-Sicherheit, Datenschutz und Wartbarkeit
+### Backend
+- PHP 8+
+- MySQL / MariaDB
+- PDO
 
-<img width="973" height="718" alt="image" src="https://github.com/user-attachments/assets/d4da77a5-43ef-425d-a92e-89a9b90e2eac" />
+### Frontend
+- HTML5
+- CSS3
+- JavaScript (Vanilla)
+
+### Sonstiges
+- Sessions & Cookies
+- Modularer Include-Aufbau
+- Responsive Design
+
+## 🛠️ Setup-Anleitung
+
+### 1️⃣ Voraussetzungen
+- PHP 8.x
+- MySQL / MariaDB
+- Webserver (Apache / Nginx / XAMPP)
+
+### 2️⃣ Projekt einrichten
+1. Repository klonen oder Dateien kopieren
+2. Projekt in das Webserver-Verzeichnis legen
+3. Datenbank anlegen
+
+### 3️⃣ Datenbank
+- SQL-Dump importieren
+- In inc/db.php Zugangsdaten anpassen:
+` $dsn    = 'mysql:host=127.0.0.1;dbname=tsvDierfeld;charset=utf8mb4';
+  $dbUser = 'root';
+  $dbPass = '';`
