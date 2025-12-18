@@ -39,6 +39,7 @@ Berechtigte Personen (z. B. Abteilungsleiter) können zusätzlich **News und Ter
 - Responsive Design
 
 ## 3. Setup-Anleitung
+[Beschreibung_Lokale_Instanz.docx](https://github.com/user-attachments/files/24241434/Beschreibung_Lokale_Instanz.docx)
 
 ### 1️⃣ Voraussetzungen
 - PHP 8.x
@@ -50,6 +51,14 @@ Berechtigte Personen (z. B. Abteilungsleiter) können zusätzlich **News und Ter
 2. Projekt in das Webserver-Verzeichnis legen
 3. Datenbank anlegen
 
+Schritt für Schritt Anleitung für Projekt ins Verzeichnis legen:
+
+Falls bisher nichts geändert wurde, muss hier die ZIP entpackt werden. Dann über localhost + Pfad drauf zugreifen:
+Bsp.: localhost\Website-Project-WebEngineering-tin25-main\src\index.php
+
+<img width="463" height="268" alt="image" src="https://github.com/user-attachments/assets/bbcee903-c3ad-4b35-b67a-c76b27f1911e" />
+
+
 ### 3️⃣ Datenbank
 - SQL-Dump importieren
 - In inc/db.php Zugangsdaten anpassen:
@@ -58,17 +67,31 @@ Berechtigte Personen (z. B. Abteilungsleiter) können zusätzlich **News und Ter
 ` $dbPass = ''; `
 
 DB DUMP als SQL:
-[tsvdierfeld.sql](https://github.com/user-attachments/files/24240873/tsvdierfeld.sql)
+[tsvdierfeld.sql](https://github.com/user-attachments/files/24241130/tsvdierfeld.sql)
 
 DB DUMP als YML:
-[tsvdierfeld.yml](https://github.com/user-attachments/files/24240905/tsvdierfeld.yml)
+[tsvdierfeld.yml](https://github.com/user-attachments/files/24241137/tsvdierfeld.yml)
 
-
-Schritt für Schritt Anleitung für XAMPP:
+*Schritt für Schritt Anleitung für Datenbankimport:*
 
 1. XAMPP installieren und starten:
 
 <img width="494" height="320" alt="image" src="https://github.com/user-attachments/assets/3d0ec28b-7b61-43a7-bd71-429d81474614" />
+
+2. [localhost/phpmyadmin](http://localhost/phpmyadmin/) aufrufen, neue DB hinzufügen mit dem Namen  `tsvdierfeld`
+<img width="555" height="199" alt="image" src="https://github.com/user-attachments/assets/9af39704-93e4-46dd-bfe2-4e4b77f3784c" />
+
+3. Datenbank importieren:
+   1. Erstellte Datenbank auswählen
+   2. `Importieren`auswählen
+   3. Datenbank Dump auswählen und hochladen -> Datenbank ist importiert.
+<img width="922" height="299" alt="image" src="https://github.com/user-attachments/assets/7e676162-dc18-4fb8-9a99-a2f7ce335cde" />
+
+
+
+
+
+
 
 
 
