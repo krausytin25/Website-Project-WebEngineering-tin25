@@ -1,7 +1,7 @@
 # Website-Project-WebEngineering-tin25
-[1. Projektbeschreibung](#projektbeschreibung)
-[2. Verwendete Technologien](#verwendete-technologien)
-[3. Setup-Anleitung](#setup-anleitung)
+[1. Projektbeschreibung](#1-projektbeschreibung)
+[2. Verwendete Technologien](#2-verwendete-technologien)
+[3. Setup-Anleitung](#3-setup-anleitung)
 
 
 ---
