@@ -211,7 +211,7 @@
 
 /* ---------- Responsiv ---------- */
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
 
     .page-grid {
         grid-template-columns: 1fr;

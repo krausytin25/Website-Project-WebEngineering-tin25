@@ -189,7 +189,7 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .page-news__inner {
         padding-inline: 12px;
     }

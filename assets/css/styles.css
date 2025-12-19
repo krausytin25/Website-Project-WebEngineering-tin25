@@ -222,9 +222,9 @@
     --radius: 15px;
     --radius-lg: 25px;
 
-    --responsive-width-wide: 1024px;
-    --responsive-width: 800px;
-    --responsive-width-small: 600px;
+    --responsive-width-wide: 1024px;    /*Desktop/ Laptop*/
+    --responsive-width: 768px;          /*Tablets*/
+    --responsive-width-small: 480px;    /*Mobile*/
 
 
     /* Typografie */
